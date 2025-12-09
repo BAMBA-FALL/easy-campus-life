@@ -67,6 +67,8 @@ def init_db(db: Session = Depends(get_db)):
     Crée:
     - Un utilisateur étudiant (etudiant@test.com / student123)
     - Un utilisateur admin (admin@campus.fr / admin2024)
+    - 8 mentors dans différentes technologies (Python, React, ML, DevOps, Java, Cybersécurité, UI/UX, Data Science)
+    - Des relations de mentorat entre mentors et étudiants
     - Des salles de classe de démonstration
     - Des événements de démonstration
     """

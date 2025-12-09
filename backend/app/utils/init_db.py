@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 from app.models.user import User
 from app.models.classroom import Classroom
 from app.models.event import Event
+from app.models.mentoring import Mentoring
 from app.utils.auth import get_password_hash
 from datetime import datetime, timedelta
 
@@ -205,16 +206,209 @@ def init_sample_events(db: Session) -> dict:
     }
 
 
+def init_mentors(db: Session) -> dict:
+    """Crée des utilisateurs mentors dans différentes technologies"""
+    mentors_data = [
+        {
+            "name": "Sophie Martin",
+            "email": "sophie.martin@mentor.fr",
+            "password": "mentor123",
+            "level": "E4",
+            "specialty": "Python & Django"
+        },
+        {
+            "name": "Thomas Dubois",
+            "email": "thomas.dubois@mentor.fr",
+            "password": "mentor123",
+            "level": "E4",
+            "specialty": "React & JavaScript"
+        },
+        {
+            "name": "Marie Lambert",
+            "email": "marie.lambert@mentor.fr",
+            "password": "mentor123",
+            "level": "E5",
+            "specialty": "Machine Learning & IA"
+        },
+        {
+            "name": "Lucas Bernard",
+            "email": "lucas.bernard@mentor.fr",
+            "password": "mentor123",
+            "level": "E5",
+            "specialty": "DevOps & Cloud"
+        },
+        {
+            "name": "Emma Petit",
+            "email": "emma.petit@mentor.fr",
+            "password": "mentor123",
+            "level": "E4",
+            "specialty": "Java & Spring Boot"
+        },
+        {
+            "name": "Hugo Roux",
+            "email": "hugo.roux@mentor.fr",
+            "password": "mentor123",
+            "level": "E5",
+            "specialty": "Cybersécurité"
+        },
+        {
+            "name": "Léa Moreau",
+            "email": "lea.moreau@mentor.fr",
+            "password": "mentor123",
+            "level": "E4",
+            "specialty": "UI/UX Design"
+        },
+        {
+            "name": "Nathan Simon",
+            "email": "nathan.simon@mentor.fr",
+            "password": "mentor123",
+            "level": "E5",
+            "specialty": "Data Science & Analytics"
+        }
+    ]
+
+    created = []
+    existing = []
+    mentors = {}
+
+    for mentor_data in mentors_data:
+        existing_mentor = db.query(User).filter(User.email == mentor_data["email"]).first()
+
+        if existing_mentor:
+            existing.append(mentor_data["name"])
+            mentors[mentor_data["email"]] = existing_mentor
+        else:
+            try:
+                hashed_password = get_password_hash(mentor_data["password"])
+            except Exception:
+                hashed_password = "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYIeWVxXbdK"
+
+            mentor = User(
+                name=mentor_data["name"],
+                email=mentor_data["email"],
+                password=hashed_password,
+                level=mentor_data["level"]
+            )
+            db.add(mentor)
+            created.append(mentor_data["name"])
+            mentors[mentor_data["email"]] = mentor
+
+    if created:
+        db.commit()
+        # Refresh pour obtenir les IDs
+        for mentor in mentors.values():
+            db.refresh(mentor)
+
+    return {
+        "created": created,
+        "existing": existing,
+        "total": len(mentors_data),
+        "mentors": mentors
+    }
+
+
+def init_mentoring_sessions(db: Session, mentors: dict) -> dict:
+    """Crée des relations de mentorat entre mentors et étudiants"""
+    # Récupérer quelques étudiants
+    students = db.query(User).filter(User.level.in_(["E1", "E2", "E3"])).limit(5).all()
+
+    if not students:
+        return {
+            "created": 0,
+            "message": "Aucun étudiant trouvé pour créer des relations de mentorat"
+        }
+
+    mentoring_sessions = [
+        {
+            "mentor_email": "sophie.martin@mentor.fr",
+            "subject": "Python & Django",
+            "description": "Apprentissage du développement web avec Python et Django framework"
+        },
+        {
+            "mentor_email": "thomas.dubois@mentor.fr",
+            "subject": "React & JavaScript",
+            "description": "Maîtrise de React.js et des concepts avancés de JavaScript moderne"
+        },
+        {
+            "mentor_email": "marie.lambert@mentor.fr",
+            "subject": "Machine Learning",
+            "description": "Introduction au Machine Learning avec Python et scikit-learn"
+        },
+        {
+            "mentor_email": "lucas.bernard@mentor.fr",
+            "subject": "DevOps & CI/CD",
+            "description": "Pratiques DevOps, Docker, Kubernetes et pipelines CI/CD"
+        },
+        {
+            "mentor_email": "emma.petit@mentor.fr",
+            "subject": "Java & Spring",
+            "description": "Développement d'applications entreprise avec Java et Spring Boot"
+        },
+        {
+            "mentor_email": "hugo.roux@mentor.fr",
+            "subject": "Cybersécurité",
+            "description": "Fondamentaux de la sécurité informatique et tests de pénétration"
+        },
+        {
+            "mentor_email": "lea.moreau@mentor.fr",
+            "subject": "UI/UX Design",
+            "description": "Conception d'interfaces utilisateur et expérience utilisateur"
+        },
+        {
+            "mentor_email": "nathan.simon@mentor.fr",
+            "subject": "Data Science",
+            "description": "Analyse de données et visualisation avec Python (Pandas, Matplotlib)"
+        }
+    ]
+
+    created = 0
+
+    for i, session_data in enumerate(mentoring_sessions):
+        mentor = mentors.get(session_data["mentor_email"])
+        if not mentor:
+            continue
+
+        # Assigner à un étudiant (rotation circulaire)
+        student = students[i % len(students)]
+
+        # Vérifier si la relation existe déjà
+        existing = db.query(Mentoring).filter(
+            Mentoring.mentor_id == mentor.id,
+            Mentoring.sponsored_id == student.id,
+            Mentoring.subject == session_data["subject"]
+        ).first()
+
+        if not existing:
+            mentoring = Mentoring(
+                mentor_id=mentor.id,
+                sponsored_id=student.id,
+                subject=session_data["subject"],
+                description=session_data["description"]
+            )
+            db.add(mentoring)
+            created += 1
+
+    if created > 0:
+        db.commit()
+
+    return {
+        "created": created,
+        "total": len(mentoring_sessions)
+    }
+
+
 def initialize_database(db: Session) -> dict:
     """
     Initialise la base de données avec des données de test
-    Crée un utilisateur étudiant et un utilisateur admin
+    Crée un utilisateur étudiant, un utilisateur admin, des mentors et des relations de mentorat
     """
     try:
         user_result = init_test_user(db)
         admin_result = init_admin_user(db)
         classrooms_result = init_sample_classrooms(db)
         events_result = init_sample_events(db)
+        mentors_result = init_mentors(db)
+        mentoring_result = init_mentoring_sessions(db, mentors_result.get("mentors", {}))
 
         return {
             "success": True,
@@ -223,7 +417,9 @@ def initialize_database(db: Session) -> dict:
                 "student": user_result,
                 "admin": admin_result,
                 "classrooms": classrooms_result,
-                "events": events_result
+                "events": events_result,
+                "mentors": mentors_result,
+                "mentoring_sessions": mentoring_result
             }
         }
     except Exception as e:
