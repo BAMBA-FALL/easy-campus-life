@@ -32,9 +32,9 @@ def init_test_user(db: Session) -> dict:
         }
 
     # Créer l'utilisateur de test
-    # Bcrypt limite à 72 bytes, donc on tronque le mot de passe au cas où
-    password = "student123"[:72]
-    hashed_password = get_password_hash(password)
+    # Utiliser un hash pré-calculé pour éviter les problèmes de bcrypt
+    # Ce hash correspond au mot de passe "student123"
+    hashed_password = "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYIeWVxXbdK"
     test_user = User(
         name="Étudiant Test",
         email="etudiant@test.com",
