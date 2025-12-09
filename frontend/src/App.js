@@ -16,6 +16,7 @@ import EventDetailPage from './features/social/EventDetailPage';
 import UserPage from './features/user/UserPage';
 import LoginPage from './features/auth/LoginPage';
 import ProtectedRoute from './features/auth/ProtectedRoute';
+import AdminProtectedRoute from './features/auth/AdminProtectedRoute';
 import MentoringPage from './features/mentoring/MentoringPage';
 import MentoringDetailPage from './features/mentoring/MentoringDetailPage';
 import ModernMainAdminDashboard from './admin/ModernMainAdminDashboard';
@@ -31,9 +32,9 @@ function App() {
 
           {/* Route Admin - Layout indépendant sans navbar publique */}
           <Route path="/admin" element={
-            <ProtectedRoute>
+            <AdminProtectedRoute>
               <ModernMainAdminDashboard />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
 
           {/* Routes publiques protégées avec MainLayout */}

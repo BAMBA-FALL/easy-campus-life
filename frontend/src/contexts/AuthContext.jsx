@@ -49,23 +49,35 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await apiService.login({ email, password });
-      
+
       if (response.access_token) {
-        const userData = { email };
         setIsAuthenticated(true);
-        setUser(userData);
-        // Sauvegarder l'utilisateur dans localStorage
-        localStorage.setItem('user', JSON.stringify(userData));
-        console.log('User connecté et sauvegardé:', userData);
-        return { success: true };
+
+        // Récupérer les informations complètes de l'utilisateur
+        try {
+          const userInfo = await apiService.getCurrentUser();
+          setUser(userInfo);
+          // Sauvegarder l'utilisateur dans localStorage
+          localStorage.setItem('user', JSON.stringify(userInfo));
+          console.log('User connecté et sauvegardé:', userInfo);
+          return { success: true, user: userInfo };
+        } catch (userError) {
+          console.error('Erreur lors de la récupération des infos utilisateur:', userError);
+          // Fallback: utiliser juste l'email
+          const userData = { email };
+          setUser(userData);
+          localStorage.setItem('user', JSON.stringify(userData));
+          console.log('User connecté (sans infos complètes):', userData);
+          return { success: true, user: userData };
+        }
       } else {
         throw new Error('Token non reçu');
       }
     } catch (error) {
       console.error('Erreur de connexion:', error);
-      return { 
-        success: false, 
-        error: error.message || 'Erreur de connexion' 
+      return {
+        success: false,
+        error: error.message || 'Erreur de connexion'
       };
     } finally {
       setLoading(false);

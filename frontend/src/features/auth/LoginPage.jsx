@@ -20,8 +20,16 @@ const LoginPage = () => {
       const result = await login(email, password);
 
       if (result.success) {
-        // Redirection vers la page d'accueil
-        navigate('/');
+        // Vérifier si l'utilisateur est admin
+        const userLevel = result.user?.level;
+
+        if (userLevel === 'Admin' || userLevel === 'admin') {
+          // Redirection vers le dashboard admin
+          navigate('/admin');
+        } else {
+          // Redirection vers la page d'accueil pour les autres utilisateurs
+          navigate('/');
+        }
       } else {
         setError(result.error || 'Identifiants incorrects');
       }
