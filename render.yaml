@@ -1,0 +1,29 @@
+services:
+  # Backend API Service
+  - type: web
+    name: easy-campus-life-api
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: easy-campus-life-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 30
+      - key: PORT
+        value: 10000
+    healthCheckPath: /health
+
+databases:
+  # PostgreSQL Database
+  - name: easy-campus-life-db
+    databaseName: campus_db
+    plan: free
+    # Note: Le plan gratuit expire après 90 jours
