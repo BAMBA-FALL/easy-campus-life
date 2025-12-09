@@ -65,25 +65,25 @@ def init_test_user(db: Session) -> dict:
 def init_sample_classrooms(db: Session) -> dict:
     """Crée des salles de classe de démonstration"""
     classrooms_data = [
-        "Salle A101",
-        "Salle B203",
-        "Bibliothèque",
-        "Cafétéria",
-        "Amphithéâtre"
+        {"name": "Salle A101", "capacity": 30},
+        {"name": "Salle B203", "capacity": 25},
+        {"name": "Bibliothèque", "capacity": 50},
+        {"name": "Cafétéria", "capacity": 100},
+        {"name": "Amphithéâtre", "capacity": 200}
     ]
 
     created = []
     existing = []
 
-    for classroom_name in classrooms_data:
-        existing_classroom = db.query(Classroom).filter(Classroom.name == classroom_name).first()
+    for classroom_data in classrooms_data:
+        existing_classroom = db.query(Classroom).filter(Classroom.name == classroom_data["name"]).first()
 
         if existing_classroom:
-            existing.append(classroom_name)
+            existing.append(classroom_data["name"])
         else:
-            classroom = Classroom(name=classroom_name)
+            classroom = Classroom(name=classroom_data["name"], capacity=classroom_data["capacity"])
             db.add(classroom)
-            created.append(classroom_name)
+            created.append(classroom_data["name"])
 
     if created:
         db.commit()
