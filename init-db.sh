@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "Initialisation de la base de données..."
+curl -X POST https://easy-campus-life.onrender.com/initialize-db -H "Content-Type: application/json"
+echo ""
+echo ""
+echo "Base de données initialisée!"
+echo ""
+echo "Comptes créés:"
+echo "- Étudiant: etudiant@test.com / student123"
+echo "- Admin: admin@campus.fr / admin2024"

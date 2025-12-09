@@ -281,7 +281,7 @@ const ModernPresencesManagement = () => {
   }
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in p-6">
       {/* Header moderne */}
       <div className="text-center py-8">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent mb-4">

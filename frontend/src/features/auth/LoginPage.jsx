@@ -18,7 +18,7 @@ const LoginPage = () => {
 
     try {
       const result = await login(email, password);
-      
+
       if (result.success) {
         // Redirection vers la page d'accueil
         navigate('/');
@@ -30,6 +30,17 @@ const LoginPage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const fillDemoCredentials = (type) => {
+    if (type === 'student') {
+      setEmail('demo@campus.fr');
+      setPassword('student123');
+    } else if (type === 'admin') {
+      setEmail('admin@campus.fr');
+      setPassword('admin2024');
+    }
+    setError('');
   };
 
   return (
@@ -59,8 +70,43 @@ const LoginPage = () => {
             </div>
           </div>
         )}
-        
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+
+        {/* Test Credentials Section for Recruiters */}
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 border border-blue-200">
+          <div className="flex items-center gap-2 mb-3">
+            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 className="font-semibold text-sm text-slate-800">Comptes de démonstration</h3>
+          </div>
+          <p className="text-xs text-slate-600 mb-3">Cliquez pour remplir automatiquement les identifiants :</p>
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => fillDemoCredentials('student')}
+              className="flex flex-col items-center gap-1 p-3 bg-white hover:bg-blue-50 border border-blue-200 rounded-lg transition-all duration-200 hover:shadow-md group"
+            >
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span className="text-white text-lg">👨‍🎓</span>
+              </div>
+              <span className="text-xs font-medium text-slate-700">Étudiant</span>
+              <span className="text-xs text-slate-500">demo@campus.fr</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => fillDemoCredentials('admin')}
+              className="flex flex-col items-center gap-1 p-3 bg-white hover:bg-purple-50 border border-purple-200 rounded-lg transition-all duration-200 hover:shadow-md group"
+            >
+              <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span className="text-white text-lg">👨‍💼</span>
+              </div>
+              <span className="text-xs font-medium text-slate-700">Admin</span>
+              <span className="text-xs text-slate-500">admin@campus.fr</span>
+            </button>
+          </div>
+        </div>
+
+        <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
               <label htmlFor="email-address" className="block text-sm font-medium text-slate-700 mb-2">

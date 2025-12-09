@@ -284,7 +284,7 @@ const ModernUsersManagement = () => {
   }
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in p-6">
       {/* Header moderne */}
       <div className="text-center py-8">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-4">

@@ -65,7 +65,8 @@ def init_db(db: Session = Depends(get_db)):
     ATTENTION: Cet endpoint est temporaire et devrait être supprimé en production
 
     Crée:
-    - Un utilisateur de test (etudiant@test.com / student123)
+    - Un utilisateur étudiant (etudiant@test.com / student123)
+    - Un utilisateur admin (admin@campus.fr / admin2024)
     - Des salles de classe de démonstration
     - Des événements de démonstration
     """

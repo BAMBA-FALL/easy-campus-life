@@ -37,7 +37,7 @@ const ModernMainAdminDashboard = () => {
   };
 
   const PlaceholderPage = ({ title, icon, description }) => (
-    <div className="flex items-center justify-center h-full">
+    <div className="flex items-center justify-center h-full p-6">
       <div className="text-center p-8 bg-white rounded-lg shadow-md max-w-xl">
         <div className="w-16 h-16 mx-auto mb-4 bg-blue-600 rounded-lg flex items-center justify-center text-3xl">
           {icon}
@@ -191,7 +191,7 @@ const ModernMainAdminDashboard = () => {
         </header>
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto bg-gray-50">
           {renderContent()}
         </main>
 

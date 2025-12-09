@@ -264,7 +264,7 @@ const ModernEventsManagement = () => {
   }
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in p-6">
       {/* Header */}
       <div className="text-center py-8">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent mb-4">

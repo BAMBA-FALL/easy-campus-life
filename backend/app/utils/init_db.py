@@ -62,6 +62,62 @@ def init_test_user(db: Session) -> dict:
     }
 
 
+def init_admin_user(db: Session) -> dict:
+    """
+    Crée un utilisateur admin s'il n'existe pas déjà
+    Email: admin@campus.fr
+    Password: admin2024
+    """
+    # Vérifier si l'admin existe déjà
+    existing_admin = db.query(User).filter(User.email == "admin@campus.fr").first()
+
+    if existing_admin:
+        return {
+            "status": "exists",
+            "message": "L'utilisateur admin existe déjà",
+            "user": {
+                "id": existing_admin.id,
+                "name": existing_admin.name,
+                "email": existing_admin.email,
+                "level": existing_admin.level
+            }
+        }
+
+    # Créer l'utilisateur admin avec hash sécurisé
+    try:
+        hashed_password = get_password_hash("admin2024")
+    except Exception:
+        # Fallback vers un hash pré-calculé en cas d'erreur bcrypt
+        # Hash pour "admin2024" généré avec bcrypt
+        hashed_password = "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYIeWVxXbdK"
+
+    admin_user = User(
+        name="Admin User",
+        email="admin@campus.fr",
+        password=hashed_password,
+        level="Admin"
+    )
+
+    db.add(admin_user)
+    db.commit()
+    db.refresh(admin_user)
+
+    return {
+        "status": "created",
+        "message": "Utilisateur admin créé avec succès",
+        "user": {
+            "id": admin_user.id,
+            "name": admin_user.name,
+            "email": admin_user.email,
+            "level": admin_user.level
+        },
+        "credentials": {
+            "email": "admin@campus.fr",
+            "password": "admin2024"
+        }
+    }
+
+
 def init_sample_classrooms(db: Session) -> dict:
     """Crée des salles de classe de démonstration"""
     classrooms_data = [
@@ -152,9 +208,11 @@ def init_sample_events(db: Session) -> dict:
 def initialize_database(db: Session) -> dict:
     """
     Initialise la base de données avec des données de test
+    Crée un utilisateur étudiant et un utilisateur admin
     """
     try:
         user_result = init_test_user(db)
+        admin_result = init_admin_user(db)
         classrooms_result = init_sample_classrooms(db)
         events_result = init_sample_events(db)
 
@@ -162,7 +220,8 @@ def initialize_database(db: Session) -> dict:
             "success": True,
             "message": "Base de données initialisée avec succès",
             "details": {
-                "user": user_result,
+                "student": user_result,
+                "admin": admin_result,
                 "classrooms": classrooms_result,
                 "events": events_result
             }
