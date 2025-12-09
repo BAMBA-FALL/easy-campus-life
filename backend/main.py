@@ -1,8 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from app.database import engine
+from sqlalchemy.orm import Session
+from app.database import engine, get_db
 from app.models import User, Event, Mentoring, Classroom, Presence, EventParticipation
 from app.routes import users, events, mentoring, auth, classrooms, presences, event_participations
+from app.utils.init_db import initialize_database
 
 # Créer les tables dans la base de données
 from app.database import Base
@@ -55,6 +57,20 @@ def read_root():
 def health_check():
     """Vérification de l'état de l'API"""
     return {"status": "healthy"}
+
+@app.post("/initialize-db")
+def init_db(db: Session = Depends(get_db)):
+    """
+    Endpoint pour initialiser la base de données avec des données de test
+    ATTENTION: Cet endpoint est temporaire et devrait être supprimé en production
+
+    Crée:
+    - Un utilisateur de test (etudiant@test.com / student123)
+    - Des salles de classe de démonstration
+    - Des événements de démonstration
+    """
+    result = initialize_database(db)
+    return result
 
 if __name__ == "__main__":
     import uvicorn
