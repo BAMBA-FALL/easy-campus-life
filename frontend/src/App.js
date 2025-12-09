@@ -28,8 +28,15 @@ function App() {
         <Routes>
           {/* Route d'authentification accessible à tous */}
           <Route path="/login" element={<LoginPage />} />
-          
-          {/* Routes protégées nécessitant une authentification */}
+
+          {/* Route Admin - Layout indépendant sans navbar publique */}
+          <Route path="/admin" element={
+            <ProtectedRoute>
+              <ModernMainAdminDashboard />
+            </ProtectedRoute>
+          } />
+
+          {/* Routes publiques protégées avec MainLayout */}
           <Route path="/" element={
             <ProtectedRoute>
               <MainLayout />
@@ -44,7 +51,6 @@ function App() {
             <Route path="mentoring/session/:mentoringId" element={<MentoringDetailPage />} />
             {/* Route forum supprimée */}
             <Route path="user" element={<UserPage />} />
-            <Route path="admin" element={<ModernMainAdminDashboard />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
