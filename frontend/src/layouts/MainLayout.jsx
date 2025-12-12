@@ -243,7 +243,7 @@ const MainLayout = () => {
 
       {/* Main Content avec glassmorphism */}
       <main className="relative z-10 flex-grow pb-6">
-        <div className="container mx-auto px-2 py-8">
+        <div className="px-2 py-8">
           <div className="min-h-[calc(100vh-200px)]">
             <Outlet />
           </div>

@@ -255,7 +255,7 @@ const HomePage = () => {
           </svg>
         </div>
         
-        <div className="container mx-auto px-4 py-36 relative z-10">
+        <div className="px-4 py-36 relative z-10">
           <div className="text-center">
             <h1 className="text-6xl font-bold mb-8">
               Ton campus, ta vie étudiante
@@ -267,7 +267,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="px-4 py-8">
         {/* Stories Section moderne */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
