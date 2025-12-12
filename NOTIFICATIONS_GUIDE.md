@@ -13,23 +13,19 @@ Le backend démarrera sur `http://localhost:8000`
 
 ### Frontend
 
-**1. Configuration de l'environnement**
+**Par défaut, le frontend est configuré pour la PRODUCTION** (https://easy-campus-life.onrender.com).
+
+Pour le **développement local** uniquement :
+
+**1. Créer un fichier `.env`**
 ```bash
 cd frontend
-# Copier le fichier de configuration
 cp .env.example .env
 ```
 
-**2. Modifier `.env` selon votre environnement :**
-
-Pour le **développement local** :
+**2. Décommenter la ligne dans `.env` :**
 ```env
 REACT_APP_API_URL=http://localhost:8000
-```
-
-Pour la **production** :
-```env
-REACT_APP_API_URL=https://easy-campus-life.onrender.com
 ```
 
 **3. Démarrer le frontend**
@@ -39,6 +35,8 @@ npm start
 ```
 
 Le frontend démarrera sur `http://localhost:3000`
+
+**Note :** Si vous ne créez pas de fichier `.env`, le frontend utilisera automatiquement l'URL de production.
 
 ## Comment tester les notifications
 
