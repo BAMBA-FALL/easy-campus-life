@@ -31,8 +31,8 @@ export const SocketProvider = ({ children }) => {
     }
 
     // Connexion au serveur Socket.io
-    // TEMPORAIRE : Utiliser localhost pour les tests en local
-    const socketUrl = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+    // Utilise l'URL de production par défaut, ou REACT_APP_API_URL pour le développement local
+    const socketUrl = process.env.REACT_APP_API_URL || 'https://easy-campus-life.onrender.com';
     const newSocket = io(socketUrl, {
       path: '/socket.io/',
       transports: ['websocket', 'polling'],
