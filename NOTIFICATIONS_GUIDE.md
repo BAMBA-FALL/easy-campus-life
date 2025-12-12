@@ -12,9 +12,29 @@ python main.py
 Le backend démarrera sur `http://localhost:8000`
 
 ### Frontend
+
+**1. Configuration de l'environnement**
 ```bash
 cd frontend
-npm install  # Déjà fait
+# Copier le fichier de configuration
+cp .env.example .env
+```
+
+**2. Modifier `.env` selon votre environnement :**
+
+Pour le **développement local** :
+```env
+REACT_APP_API_URL=http://localhost:8000
+```
+
+Pour la **production** :
+```env
+REACT_APP_API_URL=https://easy-campus-life.onrender.com
+```
+
+**3. Démarrer le frontend**
+```bash
+npm install  # Si pas encore fait
 npm start
 ```
 
