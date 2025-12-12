@@ -8,20 +8,22 @@ const MainLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [userRole, setUserRole] = useState(null);
-  
-  // Récupérer le rôle de l'utilisateur au chargement
+
+  // Récupérer le rôle de l'utilisateur au chargement et à chaque changement de route
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (user) {
       try {
         const userData = JSON.parse(user);
-        setUserRole(userData.role);
+        // Le champ s'appelle "level" dans la base de données, pas "role"
+        setUserRole(userData.level);
+        console.log('User level detected:', userData.level); // Debug
       } catch (error) {
         console.error('Erreur parsing user data:', error);
       }
     }
-  }, []);
-  
+  }, [location.pathname]); // Rafraîchir quand l'URL change
+
   // Fonction pour déconnecter l'utilisateur
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated');
@@ -30,8 +32,8 @@ const MainLayout = () => {
     window.location.href = '/login';
   };
 
-  // Vérifier si l'utilisateur est admin
-  const isAdmin = userRole === 'admin' || userRole === 'Admin';
+  // Vérifier si l'utilisateur est admin (vérifier "Admin" avec majuscule)
+  const isAdmin = userRole === 'Admin' || userRole === 'admin';
 
   return (
     <div className="min-h-screen bg-white">
