@@ -145,7 +145,7 @@ const ModernMainAdminDashboard = () => {
                   </button>
 
                   {/* Dropdown menu */}
-                  <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 opacity-0 hover:opacity-100 invisible hover:visible z-50">
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 opacity-0  invisible hover:visible z-50">
                     <div className="p-2">
                       <a href="/dashboard" className="flex items-center px-3 py-2 text-sm text-blue-600 hover:bg-blue-50 rounded-lg font-medium">
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

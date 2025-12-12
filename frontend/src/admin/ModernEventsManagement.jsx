@@ -285,7 +285,7 @@ const ModernEventsManagement = () => {
       )}
 
       {/* Barre de recherche et filtres */}
-      <div className="bg-white/60 backdrop-blur-none rounded-3xl p-6 shadow-2xl border border-white/20">
+      <div className="bg-white/60  rounded-3xl p-6 shadow-2xl border border-gray-200">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="flex-1 relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -298,7 +298,7 @@ const ModernEventsManagement = () => {
               placeholder="🔍 Rechercher un événement..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white border border-white/30 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent backdrop-blur-none transition-colors duration-150"
+              className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent  "
             />
           </div>
           
@@ -306,7 +306,7 @@ const ModernEventsManagement = () => {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="appearance-none bg-white border border-white/30 rounded-2xl px-6 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-green-500 backdrop-blur-none transition-colors duration-150"
+              className="appearance-none bg-white border border-gray-200 rounded-2xl px-6 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-green-500  "
             >
               <option value="all">🌐 Tous les statuts</option>
               <option value="upcoming">🚀 À venir</option>
@@ -321,7 +321,7 @@ const ModernEventsManagement = () => {
               setShowModal(true);
             }}
             disabled={loading}
-            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-8 py-3 rounded-2xl transition-colors duration-150  shadow-lg hover:shadow-xl flex items-center disabled:opacity-50"
+            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-8 py-3 rounded-2xl   shadow-lg  flex items-center disabled:opacity-50"
           >
             {loading ? (
               <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -336,7 +336,7 @@ const ModernEventsManagement = () => {
           <button
             onClick={loadEvents}
             disabled={loading}
-            className="bg-white hover:bg-white border border-white/30 text-gray-700 px-4 py-3 rounded-2xl transition-colors duration-150 hover:shadow-lg flex items-center disabled:opacity-50"
+            className="bg-white hover:bg-white border border-gray-200 text-gray-700 px-4 py-3 rounded-2xl   flex items-center disabled:opacity-50"
           >
             <svg className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -353,8 +353,7 @@ const ModernEventsManagement = () => {
           return (
             <div 
               key={event.id} 
-              className="group bg-white backdrop-blur-none rounded-3xl shadow-xl border border-white/20 hover:shadow-2xl transition-colors duration-150  relative overflow-hidden"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="bg-white  rounded-3xl shadow-xl border border-gray-200    relative overflow-hidden"
             >
               {/* Header coloré avec image */}
               <div className={`h-24 bg-gradient-to-r ${categoryInfo.gradient} relative overflow-hidden`}>
@@ -421,7 +420,7 @@ const ModernEventsManagement = () => {
                   <button
                     onClick={() => handleEdit(event)}
                     disabled={loading}
-                    className="flex items-center px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-800 rounded-xl transition-colors duration-150  disabled:opacity-50"
+                    className="flex items-center px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-800 rounded-xl   disabled:opacity-50"
                   >
                     <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -431,7 +430,7 @@ const ModernEventsManagement = () => {
                   <button
                     onClick={() => handleDelete(event.id)}
                     disabled={loading}
-                    className="flex items-center px-4 py-2 bg-red-100 hover:bg-red-200 text-red-800 rounded-xl transition-colors duration-150  disabled:opacity-50"
+                    className="flex items-center px-4 py-2 bg-red-100 hover:bg-red-200 text-red-800 rounded-xl   disabled:opacity-50"
                   >
                     <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -442,7 +441,6 @@ const ModernEventsManagement = () => {
               </div>
 
               {/* Effet de brillance */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full hover:translate-x-full transition- duration-150 pointer-events-none"></div>
             </div>
           );
         })}
@@ -450,7 +448,7 @@ const ModernEventsManagement = () => {
 
       {/* Message vide */}
       {filteredEvents.length === 0 && !loading && (
-        <div className="text-center py-12 bg-white/60 backdrop-blur-none rounded-3xl shadow-2xl border border-white/20">
+        <div className="text-center py-12 bg-white/60  rounded-3xl shadow-2xl border border-gray-200">
           <div className="text-6xl mb-4">📅</div>
           <h3 className="text-xl font-bold text-gray-800 mb-2">Aucun événement trouvé</h3>
           <p className="text-gray-600 mb-4">Créez votre premier événement pour commencer</p>
@@ -459,7 +457,7 @@ const ModernEventsManagement = () => {
               resetForm();
               setShowModal(true);
             }}
-            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-6 py-3 rounded-2xl transition-colors duration-150  shadow-lg"
+            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-6 py-3 rounded-2xl   shadow-lg"
           >
             ➕ Créer un événement
           </button>
@@ -468,8 +466,8 @@ const ModernEventsManagement = () => {
 
       {/* Modal de création/édition */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-none flex items-center justify-center z-50 p-4">
-          <div className="bg-white/90 backdrop-blur-none rounded-3xl p-8 w-full max-w-2xl mx-4 shadow-2xl border border-white/20 max-h-screen overflow-y-auto">
+        <div className="fixed inset-0 bg-black/50  flex items-center justify-center z-50 p-4">
+          <div className="bg-white/90  rounded-3xl p-8 w-full max-w-2xl mx-4 shadow-2xl border border-gray-200 max-h-screen overflow-y-auto">
             {/* Header modal */}
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
@@ -478,7 +476,7 @@ const ModernEventsManagement = () => {
               <button
                 onClick={() => setShowModal(false)}
                 disabled={loading}
-                className="p-2 hover:bg-gray-100 rounded-xl transition-colors duration-150"
+                className="p-2 hover:bg-gray-100 rounded-xl "
               >
                 <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -497,7 +495,7 @@ const ModernEventsManagement = () => {
                   required
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-150"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 "
                   placeholder="Ex: Workshop React Native"
                   disabled={loading}
                 />
@@ -511,7 +509,7 @@ const ModernEventsManagement = () => {
                   rows="4"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-150 resize-none"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500  resize-none"
                   placeholder="Décrivez votre événement en détail..."
                   disabled={loading}
                 />
@@ -526,7 +524,7 @@ const ModernEventsManagement = () => {
                   required
                   value={formData.place}
                   onChange={(e) => setFormData({ ...formData, place: e.target.value })}
-                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-150"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 "
                   placeholder="Ex: Amphithéâtre A, Campus Principal"
                   disabled={loading}
                 />
@@ -541,7 +539,7 @@ const ModernEventsManagement = () => {
                     required
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-150"
+                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 "
                     disabled={loading}
                   >
                     <option value="general">📅 Général</option>
@@ -566,7 +564,7 @@ const ModernEventsManagement = () => {
                     max="1000"
                     value={formData.attendance}
                     onChange={(e) => setFormData({ ...formData, attendance: e.target.value })} // 🔥 GARDÉ EN STRING
-                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-150"
+                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 "
                     placeholder="Ex: 50"
                     disabled={loading}
                   />
@@ -584,7 +582,7 @@ const ModernEventsManagement = () => {
                   type="url"
                   value={formData.image_url}
                   onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-150"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 "
                   placeholder="https://example.com/image.jpg"
                   disabled={loading}
                 />
@@ -620,7 +618,7 @@ const ModernEventsManagement = () => {
                     required
                     value={formData.date_start}
                     onChange={(e) => setFormData({ ...formData, date_start: e.target.value })}
-                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-150"
+                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 "
                     disabled={loading}
                   />
                 </div>
@@ -633,7 +631,7 @@ const ModernEventsManagement = () => {
                     type="date"
                     value={formData.date_end}
                     onChange={(e) => setFormData({ ...formData, date_end: e.target.value })}
-                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-150"
+                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 "
                     disabled={loading}
                   />
                 </div>
@@ -645,7 +643,7 @@ const ModernEventsManagement = () => {
                   type="button"
                   onClick={() => setShowModal(false)}
                   disabled={loading}
-                  className="px-6 py-3 border border-gray-300 rounded-2xl text-gray-700 hover:bg-gray-50 transition-colors duration-150 disabled:opacity-50"
+                  className="px-6 py-3 border border-gray-300 rounded-2xl text-gray-700 hover:bg-gray-50  disabled:opacity-50"
                 >
                   Annuler
                 </button>
@@ -653,7 +651,7 @@ const ModernEventsManagement = () => {
                   type="button"
                   onClick={handleSubmit}
                   disabled={loading || !formData.title.trim() || !formData.place.trim() || !formData.date_start || !formData.category || Number(formData.attendance) < 0}
-                  className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-2xl hover:from-green-600 hover:to-emerald-600 transition-colors duration-150 shadow-lg hover:shadow-xl  disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                  className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-2xl hover:from-green-600 hover:to-emerald-600  shadow-lg   disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                 >
                   {loading ? (
                     <>

@@ -303,11 +303,11 @@ const ModernPresencesManagement = () => {
 
       {/* Onglets de navigation */}
       <div className="flex justify-center mb-8">
-        <div className="bg-white/60 backdrop-blur-none rounded-2xl p-2 shadow-xl border border-white/20">
+        <div className="bg-white/60  rounded-2xl p-2 shadow-xl border border-gray-200">
           <div className="flex space-x-2">
             <button
               onClick={() => setActiveView('presences')}
-              className={`px-6 py-3 rounded-xl font-medium transition-colors duration-150 ${
+              className={`px-6 py-3 rounded-xl font-medium  ${
                 activeView === 'presences'
                   ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg'
                   : 'text-gray-600 hover:bg-white/50'
@@ -317,7 +317,7 @@ const ModernPresencesManagement = () => {
             </button>
             <button
               onClick={() => setActiveView('classrooms')}
-              className={`px-6 py-3 rounded-xl font-medium transition-colors duration-150 ${
+              className={`px-6 py-3 rounded-xl font-medium  ${
                 activeView === 'classrooms'
                   ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg'
                   : 'text-gray-600 hover:bg-white/50'
@@ -327,7 +327,7 @@ const ModernPresencesManagement = () => {
             </button>
             <button
               onClick={() => setActiveView('analytics')}
-              className={`px-6 py-3 rounded-xl font-medium transition-colors duration-150 ${
+              className={`px-6 py-3 rounded-xl font-medium  ${
                 activeView === 'analytics'
                   ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg'
                   : 'text-gray-600 hover:bg-white/50'
@@ -347,14 +347,14 @@ const ModernPresencesManagement = () => {
           { title: 'Salles actives', value: stats.totalClassrooms, icon: '🏢', gradient: 'from-purple-500 to-pink-500' },
           { title: 'Occupation moy.', value: `${stats.averageOccupancy}%`, icon: '📊', gradient: 'from-orange-500 to-red-500' }
         ].map((stat, index) => (
-          <div key={index} className="group relative bg-white backdrop-blur-none rounded-2xl p-6 shadow-xl border border-white/20 hover:shadow-2xl transition-colors duration-150  ">
-            <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${stat.gradient} opacity-0 hover:opacity-100 transition-opacity duration-150 blur-sm -z-10`}></div>
+          <div key={index} className="relative bg-white  rounded-2xl p-6 shadow-xl border border-gray-200    ">
+            <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${stat.gradient} opacity-0   blur-sm -z-10`}></div>
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 mb-1">{stat.title}</p>
                 <p className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">{stat.value}</p>
               </div>
-              <div className={`p-3 rounded-2xl bg-gradient-to-r ${stat.gradient} text-white text-2xl shadow-lg  transition- duration-150`}>
+              <div className={`p-3 rounded-2xl bg-gradient-to-r ${stat.gradient} text-white text-2xl shadow-lg  transition- duration-75`}>
                 {stat.icon}
               </div>
             </div>
@@ -365,7 +365,7 @@ const ModernPresencesManagement = () => {
       {activeView === 'presences' && (
         <>
           {/* Barre de recherche et filtres */}
-          <div className="bg-white/60 backdrop-blur-none rounded-3xl p-6 shadow-2xl border border-white/20">
+          <div className="bg-white/60  rounded-3xl p-6 shadow-2xl border border-gray-200">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
               <div className="lg:col-span-2 relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -378,14 +378,14 @@ const ModernPresencesManagement = () => {
                   placeholder="🔍 Rechercher une présence..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-white border border-white/30 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-150"
+                  className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 "
                 />
               </div>
               
               <select
                 value={filterClassroom}
                 onChange={(e) => setFilterClassroom(e.target.value)}
-                className="px-4 py-3 bg-white border border-white/30 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-150"
+                className="px-4 py-3 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 "
               >
                 <option value="all">🏢 Toutes les salles</option>
                 {classrooms.map(classroom => (
@@ -399,13 +399,13 @@ const ModernPresencesManagement = () => {
                 type="date"
                 value={filterDate}
                 onChange={(e) => setFilterDate(e.target.value)}
-                className="px-4 py-3 bg-white border border-white/30 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-150"
+                className="px-4 py-3 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 "
               />
 
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="px-4 py-3 bg-white border border-white/30 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-150"
+                className="px-4 py-3 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 "
               >
                 <option value="all">📊 Tous les statuts</option>
                 <option value="present">✅ Présents</option>
@@ -418,7 +418,7 @@ const ModernPresencesManagement = () => {
                   setShowPresenceModal(true);
                 }}
                 disabled={loading}
-                className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white px-6 py-3 rounded-2xl transition-colors duration-150  shadow-lg hover:shadow-xl flex items-center justify-center disabled:opacity-50"
+                className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white px-6 py-3 rounded-2xl   shadow-lg  flex items-center justify-center disabled:opacity-50"
               >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -429,7 +429,7 @@ const ModernPresencesManagement = () => {
           </div>
 
           {/* Liste des présences */}
-          <div className="bg-white/60 backdrop-blur-none rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+          <div className="bg-white/60  rounded-3xl shadow-2xl border border-gray-200 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
@@ -513,7 +513,7 @@ const ModernPresencesManagement = () => {
                 setShowClassroomModal(true);
               }}
               disabled={loading}
-              className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white px-6 py-3 rounded-2xl transition-colors duration-150  shadow-lg flex items-center disabled:opacity-50"
+              className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white px-6 py-3 rounded-2xl   shadow-lg flex items-center disabled:opacity-50"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -534,8 +534,7 @@ const ModernPresencesManagement = () => {
               return (
                 <div 
                   key={classroom.id}
-                  className="group bg-white backdrop-blur-none rounded-3xl p-6 shadow-xl border border-white/20 hover:shadow-2xl transition-colors duration-150  relative overflow-hidden"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="bg-white  rounded-3xl p-6 shadow-xl border border-gray-200    relative overflow-hidden"
                 >
                   {/* Header coloré */}
                   <div className={`h-16 -mx-6 -mt-6 mb-6 bg-gradient-to-r ${
@@ -557,7 +556,7 @@ const ModernPresencesManagement = () => {
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-3">
                       <div 
-                        className={`h-3 rounded-full transition-colors duration-150 ${
+                        className={`h-3 rounded-full  ${
                           occupancy > 80 ? 'bg-gradient-to-r from-red-500 to-pink-500' :
                           occupancy > 50 ? 'bg-gradient-to-r from-yellow-500 to-orange-500' :
                           'bg-gradient-to-r from-green-500 to-emerald-500'
@@ -604,7 +603,7 @@ const ModernPresencesManagement = () => {
                         setShowClassroomModal(true);
                       }}
                       disabled={loading}
-                      className="flex items-center px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-800 rounded-xl transition-colors duration-150  disabled:opacity-50"
+                      className="flex items-center px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-800 rounded-xl   disabled:opacity-50"
                     >
                       <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -614,7 +613,7 @@ const ModernPresencesManagement = () => {
                     <button
                       onClick={() => handleClassroomDelete(classroom.id)}
                       disabled={loading}
-                      className="flex items-center px-4 py-2 bg-red-100 hover:bg-red-200 text-red-800 rounded-xl transition-colors duration-150  disabled:opacity-50"
+                      className="flex items-center px-4 py-2 bg-red-100 hover:bg-red-200 text-red-800 rounded-xl   disabled:opacity-50"
                     >
                       <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -624,7 +623,6 @@ const ModernPresencesManagement = () => {
                   </div>
 
                   {/* Effet de brillance */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full hover:translate-x-full transition- duration-150 pointer-events-none"></div>
                 </div>
               );
             })}
@@ -637,7 +635,7 @@ const ModernPresencesManagement = () => {
           {/* Graphiques d'analytics */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Occupation par salle */}
-            <div className="bg-white/60 backdrop-blur-none rounded-3xl p-8 shadow-2xl border border-white/20">
+            <div className="bg-white/60  rounded-3xl p-8 shadow-2xl border border-gray-200">
               <h3 className="text-xl font-bold mb-6 text-gray-800">📊 Occupation par salle</h3>
               <div className="space-y-4">
                 {classrooms.map((classroom) => {
@@ -649,7 +647,7 @@ const ModernPresencesManagement = () => {
                       </div>
                       <div className="flex-1 bg-gray-200 rounded-full h-4 mr-4">
                         <div 
-                          className={`h-4 rounded-full transition-colors duration-150 ${
+                          className={`h-4 rounded-full  ${
                             occupancy > 80 ? 'bg-gradient-to-r from-red-500 to-pink-500' :
                             occupancy > 50 ? 'bg-gradient-to-r from-yellow-500 to-orange-500' :
                             'bg-gradient-to-r from-green-500 to-emerald-500'
@@ -667,7 +665,7 @@ const ModernPresencesManagement = () => {
             </div>
 
             {/* Tendances de présence */}
-            <div className="bg-white/60 backdrop-blur-none rounded-3xl p-8 shadow-2xl border border-white/20">
+            <div className="bg-white/60  rounded-3xl p-8 shadow-2xl border border-gray-200">
               <h3 className="text-xl font-bold mb-6 text-gray-800">📈 Tendances de présence</h3>
               <div className="h-64 flex items-end justify-around bg-gradient-to-t from-indigo-50 to-transparent rounded-2xl p-6">
                 {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map((day, index) => {
@@ -675,7 +673,7 @@ const ModernPresencesManagement = () => {
                   return (
                     <div key={index} className="flex flex-col items-center group">
                       <div 
-                        className="bg-gradient-to-t from-indigo-600 to-purple-400 w-8 mb-2 rounded-t-lg transition-colors duration-150 ease-out hover:from-purple-600 hover:to-pink-400  shadow-lg"
+                        className="bg-gradient-to-t from-indigo-600 to-purple-400 w-8 mb-2 rounded-t-lg  ease-out hover:from-purple-600 hover:to-pink-400  shadow-lg"
                         style={{ height: `${height}px` }}
                       ></div>
                       <span className="text-xs text-gray-600 font-medium">{day}</span>
@@ -687,7 +685,7 @@ const ModernPresencesManagement = () => {
           </div>
 
           {/* Statistiques détaillées */}
-          <div className="bg-white/60 backdrop-blur-none rounded-3xl p-8 shadow-2xl border border-white/20">
+          <div className="bg-white/60  rounded-3xl p-8 shadow-2xl border border-gray-200">
             <h3 className="text-xl font-bold mb-6 text-gray-800">📋 Rapport détaillé</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-200">
@@ -757,8 +755,8 @@ const ModernPresencesManagement = () => {
 
       {/* Modal de présence */}
       {showPresenceModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-none flex items-center justify-center z-50 p-4">
-          <div className="bg-white/90 backdrop-blur-none rounded-3xl p-8 w-full max-w-md mx-4 shadow-2xl border border-white/20">
+        <div className="fixed inset-0 bg-black/50  flex items-center justify-center z-50 p-4">
+          <div className="bg-white/90  rounded-3xl p-8 w-full max-w-md mx-4 shadow-2xl border border-gray-200">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 {editingPresence ? '✏️ Modifier la présence' : '📝 Marquer une présence'}
@@ -766,7 +764,7 @@ const ModernPresencesManagement = () => {
               <button
                 onClick={() => setShowPresenceModal(false)}
                 disabled={loading}
-                className="p-2 hover:bg-gray-100 rounded-xl transition-colors duration-150"
+                className="p-2 hover:bg-gray-100 rounded-xl "
               >
                 <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -784,7 +782,7 @@ const ModernPresencesManagement = () => {
                   required
                   value={presenceFormData.email}
                   onChange={(e) => setPresenceFormData({ ...presenceFormData, email: e.target.value })}
-                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-150"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 "
                   placeholder="utilisateur@campus.fr"
                   disabled={loading || editingPresence}
                 />
@@ -798,7 +796,7 @@ const ModernPresencesManagement = () => {
                   required
                   value={presenceFormData.classroom_id}
                   onChange={(e) => setPresenceFormData({ ...presenceFormData, classroom_id: e.target.value })}
-                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-150"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 "
                   disabled={loading}
                 >
                   <option value="">Sélectionner une salle</option>
@@ -843,7 +841,7 @@ const ModernPresencesManagement = () => {
                   type="button"
                   onClick={() => setShowPresenceModal(false)}
                   disabled={loading}
-                  className="px-6 py-3 border border-gray-300 rounded-2xl text-gray-700 hover:bg-gray-50 transition-colors duration-150 disabled:opacity-50"
+                  className="px-6 py-3 border border-gray-300 rounded-2xl text-gray-700 hover:bg-gray-50  disabled:opacity-50"
                 >
                   Annuler
                 </button>
@@ -851,7 +849,7 @@ const ModernPresencesManagement = () => {
                   type="button"
                   onClick={handlePresenceSubmit}
                   disabled={loading || !presenceFormData.email.trim() || !presenceFormData.classroom_id}
-                  className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl hover:from-indigo-600 hover:to-purple-600 transition-colors duration-150 shadow-lg hover:shadow-xl  disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                  className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl hover:from-indigo-600 hover:to-purple-600  shadow-lg   disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                 >
                   {loading ? (
                     <>
@@ -870,8 +868,8 @@ const ModernPresencesManagement = () => {
 
       {/* Modal de salle */}
       {showClassroomModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-none flex items-center justify-center z-50 p-4">
-          <div className="bg-white/90 backdrop-blur-none rounded-3xl p-8 w-full max-w-md mx-4 shadow-2xl border border-white/20">
+        <div className="fixed inset-0 bg-black/50  flex items-center justify-center z-50 p-4">
+          <div className="bg-white/90  rounded-3xl p-8 w-full max-w-md mx-4 shadow-2xl border border-gray-200">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 {editingClassroom ? '✏️ Modifier la salle' : '🏢 Nouvelle salle'}
@@ -879,7 +877,7 @@ const ModernPresencesManagement = () => {
               <button
                 onClick={() => setShowClassroomModal(false)}
                 disabled={loading}
-                className="p-2 hover:bg-gray-100 rounded-xl transition-colors duration-150"
+                className="p-2 hover:bg-gray-100 rounded-xl "
               >
                 <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -897,7 +895,7 @@ const ModernPresencesManagement = () => {
                   required
                   value={classroomFormData.name}
                   onChange={(e) => setClassroomFormData({ ...classroomFormData, name: e.target.value })}
-                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-150"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 "
                   placeholder="Ex: Salle A, Amphithéâtre..."
                   disabled={loading}
                 />
@@ -914,7 +912,7 @@ const ModernPresencesManagement = () => {
                   required
                   value={classroomFormData.capacity}
                   onChange={(e) => setClassroomFormData({ ...classroomFormData, capacity: parseInt(e.target.value) })}
-                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-150"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 "
                   placeholder="Nombre de places"
                   disabled={loading}
                 />
@@ -925,7 +923,7 @@ const ModernPresencesManagement = () => {
                   type="button"
                   onClick={() => setShowClassroomModal(false)}
                   disabled={loading}
-                  className="px-6 py-3 border border-gray-300 rounded-2xl text-gray-700 hover:bg-gray-50 transition-colors duration-150 disabled:opacity-50"
+                  className="px-6 py-3 border border-gray-300 rounded-2xl text-gray-700 hover:bg-gray-50  disabled:opacity-50"
                 >
                   Annuler
                 </button>
@@ -933,7 +931,7 @@ const ModernPresencesManagement = () => {
                   type="button"
                   onClick={handleClassroomSubmit}
                   disabled={loading || !classroomFormData.name.trim() || !classroomFormData.capacity || classroomFormData.capacity < 1}
-                  className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl hover:from-indigo-600 hover:to-purple-600 transition-colors duration-150 shadow-lg hover:shadow-xl  disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                  className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl hover:from-indigo-600 hover:to-purple-600  shadow-lg   disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                 >
                   {loading ? (
                     <>
@@ -952,7 +950,7 @@ const ModernPresencesManagement = () => {
 
       {/* Message si aucune donnée */}
       {presences.length === 0 && activeView === 'presences' && !loading && (
-        <div className="text-center py-12 bg-white/60 backdrop-blur-none rounded-3xl shadow-2xl border border-white/20">
+        <div className="text-center py-12 bg-white/60  rounded-3xl shadow-2xl border border-gray-200">
           <div className="text-6xl mb-4">📊</div>
           <h3 className="text-xl font-bold text-gray-800 mb-2">Aucune présence enregistrée</h3>
           <p className="text-gray-600 mb-4">Commencez par marquer votre première présence</p>
@@ -961,7 +959,7 @@ const ModernPresencesManagement = () => {
               resetPresenceForm();
               setShowPresenceModal(true);
             }}
-            className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white px-6 py-3 rounded-2xl transition-colors duration-150  shadow-lg"
+            className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white px-6 py-3 rounded-2xl   shadow-lg"
           >
             ➕ Marquer une présence
           </button>
