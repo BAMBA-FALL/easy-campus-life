@@ -63,7 +63,7 @@ const UserPage = () => {
   // Affichage de chargement
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-5xl">
+      <div className="px-4 py-8">
         <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
           <div className="h-32 bg-gradient-to-r from-blue-500 to-purple-600 animate-pulse"></div>
           <div className="px-6 py-4 relative">
@@ -82,7 +82,7 @@ const UserPage = () => {
   // Affichage d'erreur
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-5xl">
+      <div className="px-4 py-8">
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
           <p>{error}</p>
           <button 
@@ -99,7 +99,7 @@ const UserPage = () => {
   // Si pas de données utilisateur
   if (!userData) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-5xl">
+      <div className="px-4 py-8">
         <div className="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded-lg">
           <p>Aucune donnée utilisateur disponible.</p>
         </div>
@@ -122,7 +122,7 @@ const UserPage = () => {
   const initials = getInitials(userData.name);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-5xl">
+    <div className="px-4 py-8">
       {/* En-tête du profil avec image et informations de base */}
       <div className="bg-white rounded-xl shadow-md overflow-hidden mb-6">
         {/* Bannière de profil avec dégradé */}

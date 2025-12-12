@@ -5,7 +5,7 @@ const ChatPage = () => {
   const [showInfo, setShowInfo] = useState(false);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="px-4 py-8">
       {/* En-tête de la page */}
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center">

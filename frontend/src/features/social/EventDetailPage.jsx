@@ -104,7 +104,7 @@ const EventDetailPage = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-        <div className="container mx-auto px-4 py-8">
+        <div className="px-4 py-8">
           <div className="animate-pulse space-y-8">
             <div className="h-8 bg-white/60 rounded-xl w-1/4 backdrop-blur-sm"></div>
             <div className="h-96 bg-white/60 rounded-2xl backdrop-blur-sm"></div>
@@ -119,7 +119,7 @@ const EventDetailPage = () => {
   if (error) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center">
-        <div className="container mx-auto px-4">
+        <div className="px-4">
           <div className="bg-white/80 backdrop-blur-xl border border-red-200/50 text-red-700 px-8 py-6 rounded-2xl shadow-xl max-w-md mx-auto">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
@@ -145,7 +145,7 @@ const EventDetailPage = () => {
   if (!event) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center">
-        <div className="container mx-auto px-4">
+        <div className="px-4">
           <div className="bg-white/80 backdrop-blur-xl border border-yellow-200/50 text-yellow-700 px-8 py-6 rounded-2xl shadow-xl max-w-md mx-auto">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
@@ -195,7 +195,7 @@ const EventDetailPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8">
+      <div className="px-4 py-8">
         {/* Navigation */}
         <Link 
           to="/social" 

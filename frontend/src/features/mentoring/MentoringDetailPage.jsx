@@ -52,7 +52,7 @@ const MentoringDetailPage = () => {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="px-4 py-8">
         <div className="animate-pulse flex flex-col gap-4">
           <div className="h-8 bg-gray-200 rounded w-1/4"></div>
           <div className="h-40 bg-gray-200 rounded"></div>
@@ -65,7 +65,7 @@ const MentoringDetailPage = () => {
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="px-4 py-8">
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
           <p>{error}</p>
           <Link to="/mentoring" className="text-red-700 font-medium hover:underline mt-2 inline-block">
@@ -78,7 +78,7 @@ const MentoringDetailPage = () => {
 
   if (!session) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="px-4 py-8">
         <div className="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded-lg">
           <p>Session de mentorat non trouvée.</p>
           <Link to="/mentoring" className="text-yellow-700 font-medium hover:underline mt-2 inline-block">
@@ -92,7 +92,7 @@ const MentoringDetailPage = () => {
 
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="px-4 py-8">
       <Link to="/mentoring" className="inline-flex items-center text-purple-600 hover:text-purple-800 mb-6">
         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
