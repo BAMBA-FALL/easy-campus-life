@@ -34,7 +34,7 @@ const MainLayout = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header moderne avec navigation intégrée */}
-      <header className="relative z-50 bg-white border-b border-gray-200 shadow-lg">
+      <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-lg">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             {/* Logo + Navigation section */}
@@ -155,7 +155,7 @@ const MainLayout = () => {
       </header>
 
       {/* Navigation mobile */}
-      <nav className="lg:hidden relative z-40 bg-white border-b border-gray-200 shadow-md">
+      <nav className="lg:hidden sticky top-0 z-40 bg-white border-b border-gray-200 shadow-md">
         <div className="container mx-auto px-4">
           <div className="flex space-x-1 overflow-x-auto scrollbar-hide">
             {/* Accueil */}
