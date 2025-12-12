@@ -2,9 +2,11 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from app.database import engine, get_db
-from app.models import User, Event, Mentoring, Classroom, Presence, EventParticipation
+from app.models import User, Event, Mentoring, Classroom, Presence, EventParticipation, Notification
 from app.routes import users, events, mentoring, auth, classrooms, presences, event_participations
 from app.utils.init_db import initialize_database
+from app.socketio_manager import sio
+import socketio
 
 # Créer les tables dans la base de données
 from app.database import Base
@@ -24,6 +26,13 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+)
+
+# Combiner FastAPI avec Socket.io ASGI
+socket_app = socketio.ASGIApp(
+    socketio_server=sio,
+    other_asgi_app=app,
+    socketio_path='socket.io'
 )
 
 # Inclure les routes
@@ -79,4 +88,5 @@ if __name__ == "__main__":
     import uvicorn
     import os
     port = int(os.getenv("PORT", 8000))
-    uvicorn.run(app, host="0.0.0.0", port=port) 
+    # Utiliser socket_app au lieu de app pour combiner FastAPI et Socket.io
+    uvicorn.run(socket_app, host="0.0.0.0", port=port) 

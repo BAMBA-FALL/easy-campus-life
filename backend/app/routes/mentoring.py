@@ -6,11 +6,12 @@ from app.database import get_db
 from app.models.mentoring import Mentoring
 from app.models.user import User
 from app.schemas import MentoringCreate, MentoringUpdate, Mentoring as MentoringSchema, MentoringWithUsers
+from app.socketio_manager import emit_mentor_created
 
 router = APIRouter(prefix="/mentoring", tags=["mentoring"])
 
 @router.post("/", response_model=MentoringSchema, status_code=status.HTTP_201_CREATED)
-def create_mentoring(mentoring: MentoringCreate, db: Session = Depends(get_db)):
+async def create_mentoring(mentoring: MentoringCreate, db: Session = Depends(get_db)):
     """Créer une nouvelle relation de mentorat"""
     # Vérifier que le mentor existe
     mentor_user = db.query(User).filter(User.id == mentoring.mentor_id).first()
@@ -50,6 +51,17 @@ def create_mentoring(mentoring: MentoringCreate, db: Session = Depends(get_db)):
     db.add(db_mentoring)
     db.commit()
     db.refresh(db_mentoring)
+
+    # Émettre la notification Socket.io pour tous les étudiants connectés
+    mentor_data = {
+        'id': db_mentoring.id,
+        'subject': db_mentoring.subject,
+        'description': db_mentoring.description,
+        'mentor_id': db_mentoring.mentor_id,
+        'sponsored_id': db_mentoring.sponsored_id,
+    }
+    await emit_mentor_created(mentor_data)
+
     return db_mentoring
 
 @router.get("/", response_model=List[MentoringWithUsers])

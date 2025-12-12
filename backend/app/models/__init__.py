@@ -1,4 +1,4 @@
-# Package models 
+# Package models
 
 # Import all models
 from app.models.user import User
@@ -7,6 +7,7 @@ from app.models.mentoring import Mentoring
 from app.models.classroom import Classroom
 from app.models.presence import Presence
 from app.models.event_participation import EventParticipation
+from app.models.notification import Notification
 
 # Export all models
-__all__ = ["User", "Event", "Mentoring", "Classroom", "Presence", "EventParticipation"] 
+__all__ = ["User", "Event", "Mentoring", "Classroom", "Presence", "EventParticipation", "Notification"] 

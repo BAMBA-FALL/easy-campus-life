@@ -6,11 +6,12 @@ from datetime import date
 from app.database import get_db
 from app.models.event import Event
 from app.schemas import EventCreate, EventUpdate, Event as EventSchema
+from app.socketio_manager import emit_event_created
 
 router = APIRouter(prefix="/events", tags=["events"])
 
 @router.post("/", response_model=EventSchema, status_code=status.HTTP_201_CREATED)
-def create_event(event: EventCreate, db: Session = Depends(get_db)):
+async def create_event(event: EventCreate, db: Session = Depends(get_db)):
     """Créer un nouvel événement"""
     # Vérifier que la date de fin est après la date de début
     if event.date_end < event.date_start:
@@ -18,11 +19,24 @@ def create_event(event: EventCreate, db: Session = Depends(get_db)):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="La date de fin doit être après la date de début"
         )
-    
+
     db_event = Event(**event.dict())
     db.add(db_event)
     db.commit()
     db.refresh(db_event)
+
+    # Émettre la notification Socket.io pour tous les étudiants connectés
+    event_data = {
+        'id': db_event.id,
+        'title': db_event.title,
+        'description': db_event.description,
+        'category': db_event.category,
+        'place': db_event.place,
+        'date_start': str(db_event.date_start),
+        'date_end': str(db_event.date_end),
+    }
+    await emit_event_created(event_data)
+
     return db_event
 
 @router.get("/", response_model=List[EventSchema])

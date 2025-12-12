@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import FloatingChatBot from '../components/FloatingChatBot';
+import NotificationBell from '../components/NotificationBell';
+import NotificationToast from '../components/NotificationToast';
 
 const MainLayout = () => {
   const location = useLocation();
@@ -123,6 +125,9 @@ const MainLayout = () => {
 
             {/* Actions section moderne */}
             <div className="flex items-center space-x-4">
+              {/* Notification Bell */}
+              <NotificationBell />
+
               {/* Bouton Admin - visible seulement pour les admins */}
               {isAdmin && (
                 <Link 
@@ -247,6 +252,9 @@ const MainLayout = () => {
       
       {/* Chat Assistant flottant modernisé */}
       <FloatingChatBot />
+
+      {/* Toast de notifications en temps réel */}
+      <NotificationToast />
 
       {/* Styles CSS intégrés */}
       <style jsx>{`

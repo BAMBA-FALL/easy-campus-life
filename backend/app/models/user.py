@@ -18,4 +18,5 @@ class User(Base):
     mentor_relationships = relationship("Mentoring", foreign_keys="Mentoring.mentor_id", back_populates="mentor")
     sponsored_relationships = relationship("Mentoring", foreign_keys="Mentoring.sponsored_id", back_populates="sponsored")
     presences = relationship("Presence", back_populates="user")
-    event_participations = relationship("EventParticipation", back_populates="user") 
+    event_participations = relationship("EventParticipation", back_populates="user")
+    notifications = relationship("Notification", back_populates="user") 

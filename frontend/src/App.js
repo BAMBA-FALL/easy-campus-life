@@ -3,6 +3,7 @@ import './App.css';
 
 // Context
 import { AuthProvider } from './contexts/AuthContext';
+import { SocketProvider } from './contexts/SocketContext';
 
 // Layout
 import MainLayout from './layouts/MainLayout';
@@ -25,10 +26,11 @@ import ModernMainAdminDashboard from './admin/ModernMainAdminDashboard';
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* Route d'authentification accessible à tous */}
-          <Route path="/login" element={<LoginPage />} />
+      <SocketProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* Route d'authentification accessible à tous */}
+            <Route path="/login" element={<LoginPage />} />
 
           {/* Route Admin - Layout indépendant sans navbar publique */}
           <Route path="/admin" element={
@@ -56,6 +58,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      </SocketProvider>
     </AuthProvider>
   );
 }

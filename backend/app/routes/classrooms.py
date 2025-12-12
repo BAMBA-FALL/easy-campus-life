@@ -5,11 +5,12 @@ from typing import List
 from app.database import get_db
 from app.models.classroom import Classroom
 from app.schemas import ClassroomCreate, ClassroomUpdate, Classroom as ClassroomSchema, ClassroomWithPresences
+from app.socketio_manager import emit_classroom_created
 
 router = APIRouter(prefix="/classrooms", tags=["classrooms"])
 
 @router.post("/", response_model=ClassroomSchema, status_code=status.HTTP_201_CREATED)
-def create_classroom(classroom: ClassroomCreate, db: Session = Depends(get_db)):
+async def create_classroom(classroom: ClassroomCreate, db: Session = Depends(get_db)):
     """Créer une nouvelle salle de classe"""
     # Vérifier que la capacité est positive
     if classroom.capacity <= 0:
@@ -17,11 +18,20 @@ def create_classroom(classroom: ClassroomCreate, db: Session = Depends(get_db)):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="La capacité doit être supérieure à 0"
         )
-    
+
     db_classroom = Classroom(**classroom.dict())
     db.add(db_classroom)
     db.commit()
     db.refresh(db_classroom)
+
+    # Émettre la notification Socket.io pour tous les étudiants connectés
+    classroom_data = {
+        'id': db_classroom.id,
+        'name': db_classroom.name,
+        'capacity': db_classroom.capacity,
+    }
+    await emit_classroom_created(classroom_data)
+
     return db_classroom
 
 @router.get("/", response_model=List[ClassroomSchema])
