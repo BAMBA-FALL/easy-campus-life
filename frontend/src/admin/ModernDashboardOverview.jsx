@@ -192,18 +192,18 @@ const ModernDashboardOverview = ({ setActiveTab }) => {
 
   const StatCard = ({ title, value, change, icon, gradient, delay = 0 }) => (
     <div 
-      className={`group relative bg-white/80 backdrop-blur-xl rounded-2xl p-6 shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-500 hover:scale-105 transform`}
+      className={`group relative bg-white backdrop-blur-none rounded-2xl p-6 shadow-xl border border-white/20 hover:shadow-2xl transition-colors duration-150  `}
       style={{ animationDelay: `${delay}ms` }}
     >
       {/* Gradient border effect */}
-      <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm -z-10`}></div>
+      <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${gradient} opacity-0 hover:opacity-100 transition-opacity duration-150 blur-sm -z-10`}></div>
       
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
           <p className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
             {loading ? (
-              <div className="w-16 h-8 bg-gradient-to-r from-gray-200 to-gray-300 rounded animate-pulse"></div>
+              <div className="w-16 h-8 bg-gradient-to-r from-gray-200 to-gray-300 rounded"></div>
             ) : (
               <span className="animate-pulse">{value}</span>
             )}
@@ -217,35 +217,35 @@ const ModernDashboardOverview = ({ setActiveTab }) => {
             </p>
           )}
         </div>
-        <div className={`p-4 rounded-2xl bg-gradient-to-r ${gradient} text-white text-2xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+        <div className={`p-4 rounded-2xl bg-gradient-to-r ${gradient} text-white text-2xl shadow-lg  transition- duration-150`}>
           {icon}
         </div>
       </div>
       
       {/* Effet de brillance */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-2xl"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full hover:translate-x-full transition- duration-150 rounded-2xl"></div>
     </div>
   );
 
   const QuickAction = ({ title, icon, gradient, onClick }) => (
     <button 
       onClick={onClick}
-      className={`group relative p-6 rounded-2xl bg-gradient-to-r ${gradient} text-white hover:scale-105 transform transition-all duration-300 shadow-lg hover:shadow-2xl overflow-hidden`}
+      className={`group relative p-6 rounded-2xl bg-gradient-to-r ${gradient} text-white  transition-colors duration-150 shadow-lg hover:shadow-2xl overflow-hidden`}
     >
       <div className="flex items-center">
         <div className="text-2xl mr-4">{icon}</div>
         <span className="font-semibold">{title}</span>
       </div>
-      <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full hover:translate-x-full transition- duration-150"></div>
     </button>
   );
 
   const ActivityItem = ({ type, message, time, color, delay = 0 }) => (
     <div 
-      className="flex items-center p-4 bg-white/80 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-102 transform border border-white/20"
+      className="flex items-center p-4 bg-white rounded-2xl shadow-md hover:shadow-lg transition-colors duration-150  border border-white/20"
       style={{ animationDelay: `${delay}ms` }}
     >
-      <div className={`w-3 h-3 bg-gradient-to-r ${color} rounded-full mr-4 animate-pulse`}></div>
+      <div className={`w-3 h-3 bg-gradient-to-r ${color} rounded-full mr-4`}></div>
       <div className="flex-1">
         <p className="text-sm font-medium text-gray-800">{message}</p>
       </div>
@@ -285,14 +285,14 @@ const ModernDashboardOverview = ({ setActiveTab }) => {
       <div className="flex items-center justify-center h-screen">
         <div className="relative">
           <div className="w-20 h-20 border-4 border-blue-200 rounded-full animate-spin border-t-blue-600"></div>
-          <div className="absolute inset-0 w-20 h-20 border-4 border-purple-200 rounded-full animate-ping border-t-purple-600"></div>
+          <div className="absolute inset-0 w-20 h-20 border-4 border-purple-200 rounded-full border-t-purple-600"></div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8 animate-fade-in p-6">
+    <div className="space-y-8 p-6">
       {/* Header avec gradient */}
       <div className="text-center py-8">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent mb-4">
@@ -376,7 +376,7 @@ const ModernDashboardOverview = ({ setActiveTab }) => {
       </div>
 
       {/* Actions rapides avec design moderne */}
-      <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20">
+      <div className="bg-white/60 backdrop-blur-none rounded-3xl p-8 shadow-2xl border border-white/20">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
             ⚡ Actions Rapides
@@ -384,7 +384,7 @@ const ModernDashboardOverview = ({ setActiveTab }) => {
           <button
             onClick={loadDashboardData}
             disabled={loading}
-            className="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center px-4 py-2 bg-blue-50 hover:bg-blue-100 rounded-xl transition-all duration-300"
+            className="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center px-4 py-2 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors duration-150"
           >
             <svg className={`w-4 h-4 mr-1 ${loading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -429,7 +429,7 @@ const ModernDashboardOverview = ({ setActiveTab }) => {
       {/* Graphiques modernes */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Graphique en barres moderne */}
-        <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20">
+        <div className="bg-white/60 backdrop-blur-none rounded-3xl p-8 shadow-2xl border border-white/20">
           <h3 className="text-xl font-bold mb-6 text-gray-800">📊 Répartition des données</h3>
           <div className="h-64 flex items-end justify-around bg-gradient-to-t from-blue-50 to-transparent rounded-2xl p-6">
             {[
@@ -451,10 +451,10 @@ const ModernDashboardOverview = ({ setActiveTab }) => {
               return (
                 <div key={index} className="flex flex-col items-center group">
                   <div 
-                    className={`bg-gradient-to-t ${item.color} w-10 mb-2 rounded-t-lg transition-all duration-1000 ease-out group-hover:scale-110 shadow-lg relative`}
+                    className={`bg-gradient-to-t ${item.color} w-10 mb-2 rounded-t-lg transition-colors duration-150 ease-out  shadow-lg relative`}
                     style={{ height: `${height}px` }}
                   >
-                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-sm font-bold text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-sm font-bold text-gray-700 opacity-0 hover:opacity-100 transition-opacity duration-150">
                       {item.value}
                     </div>
                   </div>
@@ -468,12 +468,12 @@ const ModernDashboardOverview = ({ setActiveTab }) => {
         </div>
 
         {/* Statut système */}
-        <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20">
+        <div className="bg-white/60 backdrop-blur-none rounded-3xl p-8 shadow-2xl border border-white/20">
           <h3 className="text-xl font-bold mb-6 text-gray-800">⚡ Statut Système</h3>
           <div className="space-y-6">
             <div className="flex items-center justify-between p-4 bg-green-50 rounded-2xl">
               <div className="flex items-center">
-                <div className="w-3 h-3 bg-green-500 rounded-full mr-3 animate-pulse"></div>
+                <div className="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
                 <span className="font-medium text-green-800">API Connectée</span>
               </div>
               <span className="text-green-600 font-bold">✓ OK</span>
@@ -481,7 +481,7 @@ const ModernDashboardOverview = ({ setActiveTab }) => {
             
             <div className="flex items-center justify-between p-4 bg-blue-50 rounded-2xl">
               <div className="flex items-center">
-                <div className="w-3 h-3 bg-blue-500 rounded-full mr-3 animate-pulse"></div>
+                <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
                 <span className="font-medium text-blue-800">Base de données</span>
               </div>
               <span className="text-blue-600 font-bold">✓ Opérationnelle</span>
@@ -489,7 +489,7 @@ const ModernDashboardOverview = ({ setActiveTab }) => {
             
             <div className="flex items-center justify-between p-4 bg-purple-50 rounded-2xl">
               <div className="flex items-center">
-                <div className="w-3 h-3 bg-purple-500 rounded-full mr-3 animate-pulse"></div>
+                <div className="w-3 h-3 bg-purple-500 rounded-full mr-3"></div>
                 <span className="font-medium text-purple-800">Synchronisation</span>
               </div>
               <span className="text-purple-600 font-bold">✓ En temps réel</span>
@@ -506,7 +506,7 @@ const ModernDashboardOverview = ({ setActiveTab }) => {
       </div>
 
       {/* Activité récente avec timeline moderne */}
-      <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20">
+      <div className="bg-white/60 backdrop-blur-none rounded-3xl p-8 shadow-2xl border border-white/20">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-xl font-bold text-gray-800">🕐 Activité Récente</h3>
           <button
