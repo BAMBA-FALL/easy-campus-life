@@ -673,7 +673,7 @@ const ModernPresencesManagement = () => {
                   return (
                     <div key={index} className="flex flex-col items-center group">
                       <div 
-                        className="bg-gradient-to-t from-indigo-600 to-purple-400 w-8 mb-2 rounded-t-lg  ease-out hover:from-purple-600 hover:to-pink-400  shadow-lg"
+                        className="bg-gradient-to-t from-indigo-600 to-purple-400 w-8 mb-2 rounded-t-lg  ease-out hover:from-purple-600 hover:to-pink-400  shadow-lg hover:shadow-xl hover:shadow-2xl"
                         style={{ height: `${height}px` }}
                       ></div>
                       <span className="text-xs text-gray-600 font-medium">{day}</span>
@@ -959,7 +959,7 @@ const ModernPresencesManagement = () => {
               resetPresenceForm();
               setShowPresenceModal(true);
             }}
-            className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white px-6 py-3 rounded-2xl   shadow-lg"
+            className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white px-6 py-3 rounded-2xl   shadow-lg hover:shadow-xl hover:shadow-2xl"
           >
             ➕ Marquer une présence
           </button>

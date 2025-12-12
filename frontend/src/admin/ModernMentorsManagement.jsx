@@ -440,7 +440,7 @@ const ModernMentorsManagement = () => {
                     {/* Mentor et étudiant */}
                     <div className="space-y-4 mb-6">
                       <div className="flex items-center">
-                        <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-emerald-400 rounded-xl flex items-center justify-center mr-3 shadow-lg">
+                        <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-emerald-400 rounded-xl flex items-center justify-center mr-3 shadow-lg hover:shadow-xl hover:shadow-2xl">
                           <span className="text-white font-bold text-sm">
                             {relation.mentor?.name?.split(' ').map(n => n[0]).join('') || 'M'}
                           </span>
@@ -459,7 +459,7 @@ const ModernMentorsManagement = () => {
                       </div>
                       
                       <div className="flex items-center">
-                        <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-xl flex items-center justify-center mr-3 shadow-lg">
+                        <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-xl flex items-center justify-center mr-3 shadow-lg hover:shadow-xl hover:shadow-2xl">
                           <span className="text-white font-bold text-sm">
                             {relation.sponsored?.name?.split(' ').map(n => n[0]).join('') || 'E'}
                           </span>
@@ -577,7 +577,7 @@ const ModernMentorsManagement = () => {
               resetForm();
               setShowModal(true);
             }}
-            className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-2xl   shadow-lg"
+            className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-2xl   shadow-lg hover:shadow-xl hover:shadow-2xl"
           >
             ➕ Créer une relation
           </button>

@@ -457,7 +457,7 @@ const ModernEventsManagement = () => {
               resetForm();
               setShowModal(true);
             }}
-            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-6 py-3 rounded-2xl   shadow-lg"
+            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-6 py-3 rounded-2xl   shadow-lg hover:shadow-xl hover:shadow-2xl"
           >
             ➕ Créer un événement
           </button>
