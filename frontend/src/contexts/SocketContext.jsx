@@ -31,7 +31,9 @@ export const SocketProvider = ({ children }) => {
     }
 
     // Connexion au serveur Socket.io
-    const newSocket = io('https://easy-campus-life.onrender.com', {
+    // TEMPORAIRE : Utiliser localhost pour les tests en local
+    const socketUrl = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+    const newSocket = io(socketUrl, {
       path: '/socket.io/',
       transports: ['websocket', 'polling'],
       auth: userId ? { user_id: userId } : {},
