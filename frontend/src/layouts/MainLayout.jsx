@@ -40,7 +40,7 @@ const MainLayout = () => {
 
       {/* Header moderne avec navigation intégrée */}
       <header className="relative z-50 bg-white/80 backdrop-blur-xl border-b border-white/20 shadow-2xl">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             {/* Logo + Navigation section */}
             <div className="flex items-center space-x-8">
@@ -161,7 +161,7 @@ const MainLayout = () => {
 
       {/* Navigation mobile */}
       <nav className="lg:hidden relative z-40 bg-white/60 backdrop-blur-xl border-b border-white/20 shadow-lg">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4">
           <div className="flex space-x-1 overflow-x-auto scrollbar-hide">
             {/* Accueil */}
             <Link 
@@ -243,7 +243,7 @@ const MainLayout = () => {
 
       {/* Main Content avec glassmorphism */}
       <main className="relative z-10 flex-grow pb-6">
-        <div className="container mx-auto px-6 py-8">
+        <div className="container mx-auto px-2 py-8">
           <div className="min-h-[calc(100vh-200px)]">
             <Outlet />
           </div>
