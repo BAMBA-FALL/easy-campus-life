@@ -45,7 +45,7 @@ const MainLayout = () => {
                   <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center text-2xl shadow-xl shadow-blue-500/25 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover/logo-link:scale-110 group-hover/logo-link:rotate-3">
                     🎓
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl opacity-0 group-hover:opacity-30 group-hover:scale-125 group-hover/logo-link:opacity-30 group-hover/logo-link:scale-125 transition-all duration-500 blur-lg -z-10"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl opacity-0 group-hover:opacity-30 group-hover:scale-125 group-hover/logo-link:opacity-30 group-hover/logo-link:scale-125 transition-all duration-500 blur-lg -z-10 pointer-events-none"></div>
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent group-hover/logo-link:scale-105 transition-transform duration-300">
@@ -71,52 +71,52 @@ const MainLayout = () => {
                 >
                   <span className="text-lg group-hover:scale-110 transition-transform duration-300">📊</span>
                   <span className="text-sm">Affluence</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-xl"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-xl pointer-events-none"></div>
                 </Link>
 
                 {/* Événements */}
-                <Link 
+                <Link
                   to="/social"
                   className={`group relative py-2 px-4 font-medium transition-all duration-300 flex items-center space-x-2 rounded-xl ${
                     location.pathname.startsWith('/social')
-                      ? 'text-blue-600 bg-blue-50 shadow-md' 
+                      ? 'text-blue-600 bg-blue-50 shadow-md'
                       : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
                   }`}
                   style={{ animationDelay: '100ms' }}
                 >
                   <span className="text-lg group-hover:scale-110 transition-transform duration-300">🎉</span>
                   <span className="text-sm">Événements</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-xl"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-xl pointer-events-none"></div>
                 </Link>
 
                 {/* Mentorat */}
-                <Link 
+                <Link
                   to="/mentoring"
                   className={`group relative py-2 px-4 font-medium transition-all duration-300 flex items-center space-x-2 rounded-xl ${
                     location.pathname.startsWith('/mentoring')
-                      ? 'text-blue-600 bg-blue-50 shadow-md' 
+                      ? 'text-blue-600 bg-blue-50 shadow-md'
                       : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
                   }`}
                   style={{ animationDelay: '200ms' }}
                 >
                   <span className="text-lg group-hover:scale-110 transition-transform duration-300">🎓</span>
                   <span className="text-sm">Mentorat</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-xl"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-xl pointer-events-none"></div>
                 </Link>
 
                 {/* Chat */}
-                <Link 
+                <Link
                   to="/chat"
                   className={`group relative py-2 px-4 font-medium transition-all duration-300 flex items-center space-x-2 rounded-xl ${
                     location.pathname.startsWith('/chat')
-                      ? 'text-blue-600 bg-blue-50 shadow-md' 
+                      ? 'text-blue-600 bg-blue-50 shadow-md'
                       : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
                   }`}
                   style={{ animationDelay: '300ms' }}
                 >
                   <span className="text-lg group-hover:scale-110 transition-transform duration-300">💭</span>
                   <span className="text-sm">Chat</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-xl"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-xl pointer-events-none"></div>
                 </Link>
               </nav>
             </div>
@@ -159,78 +159,78 @@ const MainLayout = () => {
         <div className="container mx-auto px-4">
           <div className="flex space-x-1 overflow-x-auto scrollbar-hide">
             {/* Accueil */}
-            <Link 
+            <Link
               to="/"
               className={`group relative py-4 px-6 font-medium transition-all duration-300 flex items-center space-x-2 rounded-t-2xl ${
                 location.pathname === '/'
-                  ? 'text-blue-600 bg-gradient-to-t from-blue-50 to-transparent border-b-2 border-blue-600' 
+                  ? 'text-blue-600 bg-gradient-to-t from-blue-50 to-transparent border-b-2 border-blue-600'
                   : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
               }`}
               style={{ animationDelay: '0ms' }}
             >
               <span className="text-lg group-hover:scale-110 transition-transform duration-300">🏠</span>
               <span className="hidden sm:block">Accueil</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl pointer-events-none"></div>
             </Link>
 
             {/* Affluence */}
-            <Link 
+            <Link
               to="/affluence"
               className={`group relative py-4 px-6 font-medium transition-all duration-300 flex items-center space-x-2 rounded-t-2xl ${
                 location.pathname.startsWith('/affluence')
-                  ? 'text-blue-600 bg-gradient-to-t from-blue-50 to-transparent border-b-2 border-blue-600' 
+                  ? 'text-blue-600 bg-gradient-to-t from-blue-50 to-transparent border-b-2 border-blue-600'
                   : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
               }`}
               style={{ animationDelay: '100ms' }}
             >
               <span className="text-lg group-hover:scale-110 transition-transform duration-300">📊</span>
               <span className="hidden sm:block">Affluence</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl pointer-events-none"></div>
             </Link>
 
             {/* Événements */}
-            <Link 
+            <Link
               to="/social"
               className={`group relative py-4 px-6 font-medium transition-all duration-300 flex items-center space-x-2 rounded-t-2xl ${
                 location.pathname.startsWith('/social')
-                  ? 'text-blue-600 bg-gradient-to-t from-blue-50 to-transparent border-b-2 border-blue-600' 
+                  ? 'text-blue-600 bg-gradient-to-t from-blue-50 to-transparent border-b-2 border-blue-600'
                   : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
               }`}
               style={{ animationDelay: '200ms' }}
             >
               <span className="text-lg group-hover:scale-110 transition-transform duration-300">🎉</span>
               <span className="hidden sm:block">Événements</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl pointer-events-none"></div>
             </Link>
 
             {/* Mentorat */}
-            <Link 
+            <Link
               to="/mentoring"
               className={`group relative py-4 px-6 font-medium transition-all duration-300 flex items-center space-x-2 rounded-t-2xl ${
                 location.pathname.startsWith('/mentoring')
-                  ? 'text-blue-600 bg-gradient-to-t from-blue-50 to-transparent border-b-2 border-blue-600' 
+                  ? 'text-blue-600 bg-gradient-to-t from-blue-50 to-transparent border-b-2 border-blue-600'
                   : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
               }`}
               style={{ animationDelay: '300ms' }}
             >
               <span className="text-lg group-hover:scale-110 transition-transform duration-300">🎓</span>
               <span className="hidden sm:block">Mentorat</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl pointer-events-none"></div>
             </Link>
 
             {/* Chat */}
-            <Link 
+            <Link
               to="/chat"
               className={`group relative py-4 px-6 font-medium transition-all duration-300 flex items-center space-x-2 rounded-t-2xl ${
                 location.pathname.startsWith('/chat')
-                  ? 'text-blue-600 bg-gradient-to-t from-blue-50 to-transparent border-b-2 border-blue-600' 
+                  ? 'text-blue-600 bg-gradient-to-t from-blue-50 to-transparent border-b-2 border-blue-600'
                   : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
               }`}
               style={{ animationDelay: '400ms' }}
             >
               <span className="text-lg group-hover:scale-110 transition-transform duration-300">💭</span>
               <span className="hidden sm:block">Chat</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl pointer-events-none"></div>
             </Link>
           </div>
         </div>
