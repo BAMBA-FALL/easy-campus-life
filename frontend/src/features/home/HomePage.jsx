@@ -236,7 +236,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-white">
       {/* Header moderne avec image et dégradé */}
       <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         {/* Image en arrière-plan avec transparence */}
@@ -342,7 +342,7 @@ const HomePage = () => {
             </div>
 
             {/* Card Affluence */}
-            <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 shadow-xl border border-white/20 hover:shadow-2xl transition-shadow duration-300">
+            <div className="bg-white rounded-3xl p-6 shadow-xl border border-gray-200 hover:shadow-2xl transition-shadow duration-300">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold text-gray-800">Statistiques d'affluence en temps réel</h3>
                 <div className="text-xs text-gray-500">
@@ -445,10 +445,10 @@ const HomePage = () => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {mentors.map((mentor, index) => (
-                  <Link 
+                  <Link
                     to="/mentoring"
-                    key={index} 
-                    className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-4 h-40"
+                    key={index}
+                    className="bg-white rounded-3xl p-8 shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-4 h-40"
                   >
                     <div className={`h-20 w-20 rounded-full flex items-center justify-center flex-shrink-0 text-2xl font-semibold ${getBackgroundColor(mentor.id)}`}>
                       {getInitials(mentor.name)}
@@ -466,7 +466,7 @@ const HomePage = () => {
                 ))}
                 
                 {mentors.length === 0 && (
-                  <div className="col-span-full bg-white/80 backdrop-blur-xl rounded-3xl p-6 text-center shadow-xl border border-white/20">
+                  <div className="col-span-full bg-white rounded-3xl p-6 text-center shadow-xl border border-gray-200">
                     <p className="text-gray-500">Aucun mentor disponible pour le moment.</p>
                     <Link to="/mentoring" className="text-purple-600 font-medium mt-2 inline-block">Voir toutes les options de mentorat</Link>
                   </div>

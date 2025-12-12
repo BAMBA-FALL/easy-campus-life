@@ -32,14 +32,9 @@ const MainLayout = () => {
   const isAdmin = userRole === 'admin' || userRole === 'Admin';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-      {/* Effets de fond animés */}
-      <div className="fixed inset-0 bg-gradient-to-r from-blue-400/5 via-purple-400/5 to-pink-400/5"></div>
-      <div className="fixed top-0 left-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-bounce-slow"></div>
-      <div className="fixed bottom-0 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse"></div>
-
+    <div className="min-h-screen bg-white">
       {/* Header moderne avec navigation intégrée */}
-      <header className="relative z-50 bg-white/80 backdrop-blur-xl border-b border-white/20 shadow-2xl">
+      <header className="relative z-50 bg-white border-b border-gray-200 shadow-lg">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             {/* Logo + Navigation section */}
@@ -160,7 +155,7 @@ const MainLayout = () => {
       </header>
 
       {/* Navigation mobile */}
-      <nav className="lg:hidden relative z-40 bg-white/60 backdrop-blur-xl border-b border-white/20 shadow-lg">
+      <nav className="lg:hidden relative z-40 bg-white border-b border-gray-200 shadow-md">
         <div className="container mx-auto px-4">
           <div className="flex space-x-1 overflow-x-auto scrollbar-hide">
             {/* Accueil */}
