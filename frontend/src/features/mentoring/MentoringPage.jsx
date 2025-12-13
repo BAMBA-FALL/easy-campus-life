@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import apiService from '../../services/apiService';
 import { useAuth } from '../../contexts/AuthContext';
 
 const MentoringPage = () => {
-  const navigate = useNavigate();
   const { user } = useAuth();
+  const isMentor = user && (user.level === 'Mentor' || user.level === 'mentor');
 
+  // États pour la vue étudiant
   const [selectedMentor, setSelectedMentor] = useState(null);
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [bookingData, setBookingData] = useState({
@@ -17,17 +18,15 @@ const MentoringPage = () => {
   });
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [mentoringSessions, setMentoringSessions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('Tous');
 
-  // Rediriger les mentors vers leur page de demandes
-  useEffect(() => {
-    if (user && (user.level === 'Mentor' || user.level === 'mentor')) {
-      navigate('/mentor/requests');
-    }
-  }, [user, navigate]);
-  
+  // États pour la vue mentor
+  const [mentorRequests, setMentorRequests] = useState([]);
+  const [filter, setFilter] = useState('all');
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   // Fonction pour générer les initiales à partir d'un nom
   const getInitials = (name) => {
     if (!name) return 'XX';
@@ -37,7 +36,7 @@ const MentoringPage = () => {
       .join('')
       .toUpperCase();
   };
-  
+
   // Fonction pour générer une couleur de fond basée sur l'ID
   const getBackgroundColor = (id) => {
     const colors = [
@@ -65,31 +64,23 @@ const MentoringPage = () => {
 
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
-      // Création d'un objet de session de mentorat au format attendu par l'API
       const mentoringData = {
         mentor_id: selectedMentor.id,
-        // Pour l'instant, on utilise un ID utilisateur fixe pour le sponsored_id
-        // Dans une application réelle, cela viendrait de l'utilisateur connecté
-        sponsored_id: 2, // ID de l'utilisateur actuellement connecté
+        sponsored_id: user.id,
         subject: bookingData.topic,
         description: bookingData.message
-        // Les champs created_at et updated_at sont gérés par l'API
       };
-      
-      // Appel à l'API pour créer une session de mentorat
+
       await apiService.createMentoringSession(mentoringData);
-      
-      // Rafraîchir les données après la création
       const data = await apiService.getMentoringSessions();
       setMentoringSessions(data);
-      
+
       setBookingSuccess(true);
       setShowBookingForm(false);
     } catch (error) {
       console.error('Erreur lors de la création de la session de mentorat:', error);
-      // En cas d'erreur, on simule quand même le succès pour l'expérience utilisateur
       setTimeout(() => {
         setBookingSuccess(true);
         setShowBookingForm(false);
@@ -97,35 +88,80 @@ const MentoringPage = () => {
     }
   };
 
-  // Chargement des sessions de mentorat depuis l'API
-  useEffect(() => {
-    const fetchMentoringSessions = async () => {
-      setLoading(true);
-      try {
-        const data = await apiService.getMentoringSessions();
-        setMentoringSessions(data);
-        setError(null);
-      } catch (err) {
-        console.error('Erreur lors du chargement des sessions de mentorat:', err);
-        setError('Impossible de charger les données de mentorat. Utilisation des données simulées.');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const handleStatusChange = async (requestId, newStatus) => {
+    try {
+      await apiService.updateMentoringSession(requestId, { status: newStatus });
+      fetchMentorRequests();
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du statut:', error);
+      alert('Impossible de mettre à jour le statut');
+    }
+  };
 
-    fetchMentoringSessions();
-  }, []);
+  const getStatusBadge = (status) => {
+    const badges = {
+      pending: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+      accepted: 'bg-green-100 text-green-800 border-green-200',
+      rejected: 'bg-red-100 text-red-800 border-red-200',
+      completed: 'bg-blue-100 text-blue-800 border-blue-200'
+    };
+    const labels = {
+      pending: 'En attente',
+      accepted: 'Acceptée',
+      rejected: 'Refusée',
+      completed: 'Terminée'
+    };
+    return (
+      <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${badges[status] || 'bg-gray-100 text-gray-800'}`}>
+        {labels[status] || status}
+      </span>
+    );
+  };
+
+  // Chargement des données selon le rôle
+  const fetchMentorRequests = async () => {
+    try {
+      setLoading(true);
+      const data = await apiService.getUserMentoring(user.id);
+      setMentorRequests(data);
+    } catch (error) {
+      console.error('Erreur lors du chargement des demandes:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchMentoringSessions = async () => {
+    setLoading(true);
+    try {
+      const data = await apiService.getMentoringSessions();
+      setMentoringSessions(data);
+      setError(null);
+    } catch (err) {
+      console.error('Erreur lors du chargement des sessions de mentorat:', err);
+      setError('Impossible de charger les données de mentorat. Utilisation des données simulées.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isMentor) {
+      fetchMentorRequests();
+    } else {
+      fetchMentoringSessions();
+    }
+  }, [isMentor, user]);
 
   // Conversion des données de l'API au format attendu par le composant
   const convertApiDataToMentorFormat = (apiData) => {
     if (!apiData || apiData.length === 0) return [];
-    
-    // Map pour éviter les doublons de mentors
+
     const mentorsMap = new Map();
-    
+
     apiData.forEach(session => {
       const mentor = session.mentor;
-      
+
       if (!mentorsMap.has(mentor.id)) {
         mentorsMap.set(mentor.id, {
           id: mentor.id,
@@ -133,25 +169,190 @@ const MentoringPage = () => {
           department: `Niveau ${mentor.level}`,
           specialty: session.subject || 'Non spécifié',
           availability: 'Sur demande',
-          rating: 4.5, // Valeur par défaut
+          rating: 4.5,
           bio: session.description || 'Mentor disponible pour vous aider dans vos études.'
         });
       }
     });
-    
+
     return Array.from(mentorsMap.values());
   };
 
-  // Utilisation des données de l'API ou tableau vide en cas d'erreur
-  const mentors = error ? [] : 
-                 (mentoringSessions.length > 0 ? 
-                  convertApiDataToMentorFormat(mentoringSessions) : 
-                  []);
+  const mentors = error ? [] :
+    (mentoringSessions.length > 0 ?
+      convertApiDataToMentorFormat(mentoringSessions) :
+      []);
 
-  const filteredMentors = selectedCategory === 'Tous' 
-    ? mentors 
+  const filteredMentors = selectedCategory === 'Tous'
+    ? mentors
     : mentors.filter(mentor => mentor.specialty === selectedCategory);
 
+  const filteredRequests = mentorRequests.filter(request => {
+    if (filter === 'all') return true;
+    return request.status === filter;
+  });
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Chargement...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Vue pour les mentors
+  if (isMentor) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-8">
+        <div className="max-w-7xl mx-auto px-4">
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+              Mes demandes de mentorat
+            </h1>
+            <p className="text-gray-600">Gérez les demandes d'aide des étudiants</p>
+          </div>
+
+          {/* Filtres */}
+          <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => setFilter('all')}
+                className={`px-4 py-2 rounded-xl font-medium transition-colors duration-150 ${filter === 'all'
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
+                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                  }`}
+              >
+                Toutes ({mentorRequests.length})
+              </button>
+              <button
+                onClick={() => setFilter('pending')}
+                className={`px-4 py-2 rounded-xl font-medium transition-colors duration-150 ${filter === 'pending'
+                  ? 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white'
+                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                  }`}
+              >
+                En attente ({mentorRequests.filter(r => r.status === 'pending').length})
+              </button>
+              <button
+                onClick={() => setFilter('accepted')}
+                className={`px-4 py-2 rounded-xl font-medium transition-colors duration-150 ${filter === 'accepted'
+                  ? 'bg-gradient-to-r from-green-400 to-emerald-500 text-white'
+                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                  }`}
+              >
+                Acceptées ({mentorRequests.filter(r => r.status === 'accepted').length})
+              </button>
+            </div>
+          </div>
+
+          {/* Liste des demandes */}
+          {filteredRequests.length === 0 ? (
+            <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
+              <div className="text-6xl mb-4">📭</div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Aucune demande</h3>
+              <p className="text-gray-600">
+                {filter === 'all'
+                  ? "Vous n'avez pas encore reçu de demandes de mentorat"
+                  : `Aucune demande ${filter === 'pending' ? 'en attente' : filter === 'accepted' ? 'acceptée' : 'avec ce statut'}`
+                }
+              </p>
+            </div>
+          ) : (
+            <div className="grid gap-6">
+              {filteredRequests.map((request) => (
+                <div key={request.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-150">
+                  <div className="p-6">
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                            {request.sponsored_name ? request.sponsored_name.charAt(0) : 'E'}
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold text-gray-800">
+                              {request.sponsored_name || 'Étudiant'}
+                            </h3>
+                            <p className="text-sm text-gray-500">
+                              {new Date(request.created_at).toLocaleDateString('fr-FR', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              })}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        {getStatusBadge(request.status)}
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <h4 className="font-semibold text-gray-800 mb-2 flex items-center gap-2">
+                        <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        {request.subject || 'Sujet non spécifié'}
+                      </h4>
+                      <p className="text-gray-600 whitespace-pre-wrap">
+                        {request.description || 'Pas de description fournie'}
+                      </p>
+                    </div>
+
+                    {/* Actions */}
+                    {request.status === 'pending' && (
+                      <div className="flex gap-3 pt-4 border-t border-gray-100">
+                        <button
+                          onClick={() => handleStatusChange(request.id, 'accepted')}
+                          className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-2 px-4 rounded-xl font-semibold transition-colors duration-150 flex items-center justify-center gap-2"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                          Accepter
+                        </button>
+                        <button
+                          onClick={() => handleStatusChange(request.id, 'rejected')}
+                          className="flex-1 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white py-2 px-4 rounded-xl font-semibold transition-colors duration-150 flex items-center justify-center gap-2"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                          Refuser
+                        </button>
+                      </div>
+                    )}
+
+                    {request.status === 'accepted' && (
+                      <div className="pt-4 border-t border-gray-100">
+                        <button
+                          onClick={() => handleStatusChange(request.id, 'completed')}
+                          className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-2 px-4 rounded-xl font-semibold transition-colors duration-150 flex items-center justify-center gap-2"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          Marquer comme terminée
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // Vue pour les étudiants (contenu original)
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       <div className="px-4 py-8">
@@ -222,11 +423,10 @@ const MentoringPage = () => {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
-                  selectedCategory === category
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
-                    : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
-                }`}
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${selectedCategory === category
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
+                  : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                  }`}
               >
                 {category}
               </button>
@@ -247,9 +447,9 @@ const MentoringPage = () => {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {mentoringSessions.map(session => (
-                <Link 
-                  to={`/mentoring/session/${session.id}`} 
-                  key={session.id} 
+                <Link
+                  to={`/mentoring/session/${session.id}`}
+                  key={session.id}
                   className="group bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]"
                 >
                   <div className="p-4">
@@ -297,32 +497,17 @@ const MentoringPage = () => {
                 </div>
                 Mentors disponibles
               </h2>
-              
-              {loading ? (
-                <div className="space-y-4">
-                  {[...Array(5)].map((_, index) => (
-                    <div key={index} className="animate-pulse">
-                      <div className="flex items-center p-3 rounded-xl bg-slate-100">
-                        <div className="w-12 h-12 bg-slate-200 rounded-full mr-4"></div>
-                        <div className="flex-1">
-                          <div className="h-4 bg-slate-200 rounded w-3/4 mb-2"></div>
-                          <div className="h-3 bg-slate-200 rounded w-1/2"></div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : filteredMentors.length > 0 ? (
+
+              {filteredMentors.length > 0 ? (
                 <div className="space-y-3">
                   {filteredMentors.map((mentor, index) => (
                     <div
                       key={mentor.id}
                       onClick={() => handleMentorSelect(mentor)}
-                      className={`cursor-pointer p-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] ${
-                        selectedMentor?.id === mentor.id
-                          ? 'bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-300 shadow-lg'
-                          : 'bg-white/60 hover:bg-white/80 border border-white/50 hover:shadow-lg'
-                      }`}
+                      className={`cursor-pointer p-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] ${selectedMentor?.id === mentor.id
+                        ? 'bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-300 shadow-lg'
+                        : 'bg-white/60 hover:bg-white/80 border border-white/50 hover:shadow-lg'
+                        }`}
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
                       <div className="flex items-center">
@@ -412,8 +597,8 @@ const MentoringPage = () => {
                         <p>Votre session avec {selectedMentor.name} a été réservée avec succès.</p>
                       </div>
                     </div>
-                    <button 
-                      className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105" 
+                    <button
+                      className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
                       onClick={() => setBookingSuccess(false)}
                     >
                       Voir mes réservations
@@ -457,7 +642,7 @@ const MentoringPage = () => {
                             />
                           </div>
                         </div>
-                        
+
                         <div>
                           <label className="block text-sm font-semibold text-slate-700 mb-2">Sujet de la session</label>
                           <input
@@ -470,7 +655,7 @@ const MentoringPage = () => {
                             className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                           />
                         </div>
-                        
+
                         <div>
                           <label className="block text-sm font-semibold text-slate-700 mb-2">Description de vos besoins</label>
                           <textarea
@@ -482,17 +667,17 @@ const MentoringPage = () => {
                             className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
                           ></textarea>
                         </div>
-                        
+
                         <div className="flex gap-4">
-                          <button 
-                            type="submit" 
+                          <button
+                            type="submit"
                             className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
                           >
                             Confirmer la réservation
                           </button>
-                          <button 
-                            type="button" 
-                            onClick={() => setShowBookingForm(false)} 
+                          <button
+                            type="button"
+                            onClick={() => setShowBookingForm(false)}
                             className="px-6 py-3 border-2 border-slate-200 hover:border-slate-300 text-slate-700 rounded-xl font-semibold transition-all duration-300 hover:bg-slate-50"
                           >
                             Annuler
