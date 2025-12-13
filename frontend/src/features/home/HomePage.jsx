@@ -324,77 +324,60 @@ const HomePage = () => {
                     }}
                   >
                     <div className="relative w-full h-full">
-                        {/* Bordure segmentée avec SVG */}
-                        <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
-                          {/* Segment 1 - Jaune à Rose */}
-                          <circle
-                            cx="50"
-                            cy="50"
-                            r="45"
-                            fill="none"
-                            stroke="url(#gradient1)"
-                            strokeWidth="3"
-                            strokeDasharray="70.7 212.1"
-                            strokeDashoffset="0"
-                            strokeLinecap="round"
-                          />
-                          {/* Segment 2 - Violet à Bleu */}
-                          <circle
-                            cx="50"
-                            cy="50"
-                            r="45"
-                            fill="none"
-                            stroke="url(#gradient2)"
-                            strokeWidth="3"
-                            strokeDasharray="70.7 212.1"
-                            strokeDashoffset="-70.7"
-                            strokeLinecap="round"
-                          />
-                          {/* Segment 3 - Vert à Émeraude */}
-                          <circle
-                            cx="50"
-                            cy="50"
-                            r="45"
-                            fill="none"
-                            stroke="url(#gradient3)"
-                            strokeWidth="3"
-                            strokeDasharray="70.7 212.1"
-                            strokeDashoffset="-141.4"
-                            strokeLinecap="round"
-                          />
-                          {/* Segment 4 - Orange à Rouge */}
-                          <circle
-                            cx="50"
-                            cy="50"
-                            r="45"
-                            fill="none"
-                            stroke="url(#gradient4)"
-                            strokeWidth="3"
-                            strokeDasharray="70.7 212.1"
-                            strokeDashoffset="-212.1"
-                            strokeLinecap="round"
-                          />
+                        {/* Bordure segmentée avec SVG - Dynamique selon le nombre d'images */}
+                        {(() => {
+                          // Définir le nombre d'images (4 dans ce cas)
+                          const numImages = 4;
+                          const radius = 45;
+                          const circumference = 2 * Math.PI * radius; // ≈ 282.74
+                          const segmentLength = circumference / numImages;
+                          const gapLength = 2; // Petit espace entre les segments
 
-                          {/* Définition des gradients */}
-                          <defs>
-                            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor="#fbbf24" />
-                              <stop offset="100%" stopColor="#ec4899" />
-                            </linearGradient>
-                            <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor="#a855f7" />
-                              <stop offset="100%" stopColor="#3b82f6" />
-                            </linearGradient>
-                            <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor="#34d399" />
-                              <stop offset="100%" stopColor="#10b981" />
-                            </linearGradient>
-                            <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor="#fb923c" />
-                              <stop offset="100%" stopColor="#ef4444" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                          // Couleurs des gradients
+                          const gradients = [
+                            { id: 'gradient1', start: '#fbbf24', end: '#ec4899' }, // Jaune à Rose
+                            { id: 'gradient2', start: '#a855f7', end: '#3b82f6' }, // Violet à Bleu
+                            { id: 'gradient3', start: '#34d399', end: '#10b981' }, // Vert à Émeraude
+                            { id: 'gradient4', start: '#fb923c', end: '#ef4444' }, // Orange à Rouge
+                            { id: 'gradient5', start: '#06b6d4', end: '#3b82f6' }, // Cyan à Bleu
+                            { id: 'gradient6', start: '#ec4899', end: '#a855f7' }, // Rose à Violet
+                          ];
+
+                          return (
+                            <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+                              {/* Génération dynamique des segments */}
+                              {Array.from({ length: numImages }).map((_, index) => {
+                                const offset = -(segmentLength + gapLength) * index;
+                                const gradient = gradients[index % gradients.length];
+
+                                return (
+                                  <circle
+                                    key={index}
+                                    cx="50"
+                                    cy="50"
+                                    r={radius}
+                                    fill="none"
+                                    stroke={`url(#${gradient.id})`}
+                                    strokeWidth="3"
+                                    strokeDasharray={`${segmentLength - gapLength} ${circumference - (segmentLength - gapLength)}`}
+                                    strokeDashoffset={offset}
+                                    strokeLinecap="round"
+                                  />
+                                );
+                              })}
+
+                              {/* Définition des gradients */}
+                              <defs>
+                                {gradients.map((gradient) => (
+                                  <linearGradient key={gradient.id} id={gradient.id} x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor={gradient.start} />
+                                    <stop offset="100%" stopColor={gradient.end} />
+                                  </linearGradient>
+                                ))}
+                              </defs>
+                            </svg>
+                          );
+                        })()}
 
                         {/* Image au centre */}
                         <div className="absolute inset-2 rounded-full border-2 border-white overflow-hidden shadow-lg">
@@ -403,11 +386,6 @@ const HomePage = () => {
                             alt={event.title}
                             className="w-full h-full object-cover"
                           />
-                        </div>
-
-                        {/* Badge compteur d'images */}
-                        <div className="absolute -bottom-1 -right-1 bg-gradient-to-br from-orange-500 to-pink-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-white shadow-md">
-                          4
                         </div>
                     </div>
                   </div>
