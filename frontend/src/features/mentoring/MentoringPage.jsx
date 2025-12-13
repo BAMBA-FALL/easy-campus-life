@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import apiService from '../../services/apiService';
+import { useAuth } from '../../contexts/AuthContext';
 
 const MentoringPage = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
   const [selectedMentor, setSelectedMentor] = useState(null);
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [bookingData, setBookingData] = useState({
@@ -16,6 +20,13 @@ const MentoringPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('Tous');
+
+  // Rediriger les mentors vers leur page de demandes
+  useEffect(() => {
+    if (user && (user.level === 'Mentor' || user.level === 'mentor')) {
+      navigate('/mentor/requests');
+    }
+  }, [user, navigate]);
   
   // Fonction pour générer les initiales à partir d'un nom
   const getInitials = (name) => {

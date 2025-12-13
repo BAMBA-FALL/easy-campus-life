@@ -99,18 +99,18 @@ const MainLayout = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-xl pointer-events-none"></div>
                 </Link>
 
-                {/* Mentorat */}
+                {/* Mentorat / Mes demandes (selon le rôle) */}
                 <Link
-                  to="/mentoring"
+                  to={isMentor ? "/mentor/requests" : "/mentoring"}
                   className={`group relative py-2 px-4 font-medium transition-all duration-300 flex items-center space-x-2 rounded-xl ${
-                    location.pathname.startsWith('/mentoring')
+                    (isMentor && location.pathname.startsWith('/mentor/requests')) || (!isMentor && location.pathname.startsWith('/mentoring'))
                       ? 'text-blue-600 bg-blue-50 shadow-md'
                       : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
                   }`}
                   style={{ animationDelay: '200ms' }}
                 >
-                  <span className="text-lg group-hover:scale-110 transition-transform duration-300">🎓</span>
-                  <span className="text-sm">Mentorat</span>
+                  <span className="text-lg group-hover:scale-110 transition-transform duration-300">{isMentor ? '📋' : '🎓'}</span>
+                  <span className="text-sm">{isMentor ? 'Mes demandes' : 'Mentorat'}</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-xl pointer-events-none"></div>
                 </Link>
 
@@ -128,23 +128,6 @@ const MainLayout = () => {
                   <span className="text-sm">Chat</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-xl pointer-events-none"></div>
                 </Link>
-
-                {/* Mes demandes - visible seulement pour les mentors */}
-                {isMentor && (
-                  <Link
-                    to="/mentor/requests"
-                    className={`group relative py-2 px-4 font-medium transition-all duration-300 flex items-center space-x-2 rounded-xl ${
-                      location.pathname.startsWith('/mentor/requests')
-                        ? 'text-blue-600 bg-blue-50 shadow-md'
-                        : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
-                    }`}
-                    style={{ animationDelay: '400ms' }}
-                  >
-                    <span className="text-lg group-hover:scale-110 transition-transform duration-300">📋</span>
-                    <span className="text-sm">Mes demandes</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-xl pointer-events-none"></div>
-                  </Link>
-                )}
               </nav>
             </div>
 
@@ -235,18 +218,18 @@ const MainLayout = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl pointer-events-none"></div>
             </Link>
 
-            {/* Mentorat */}
+            {/* Mentorat / Mes demandes (selon le rôle) */}
             <Link
-              to="/mentoring"
+              to={isMentor ? "/mentor/requests" : "/mentoring"}
               className={`group relative py-4 px-6 font-medium transition-all duration-300 flex items-center space-x-2 rounded-t-2xl ${
-                location.pathname.startsWith('/mentoring')
+                (isMentor && location.pathname.startsWith('/mentor/requests')) || (!isMentor && location.pathname.startsWith('/mentoring'))
                   ? 'text-blue-600 bg-gradient-to-t from-blue-50 to-transparent border-b-2 border-blue-600'
                   : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
               }`}
               style={{ animationDelay: '300ms' }}
             >
-              <span className="text-lg group-hover:scale-110 transition-transform duration-300">🎓</span>
-              <span className="hidden sm:block">Mentorat</span>
+              <span className="text-lg group-hover:scale-110 transition-transform duration-300">{isMentor ? '📋' : '🎓'}</span>
+              <span className="hidden sm:block">{isMentor ? 'Mes demandes' : 'Mentorat'}</span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl pointer-events-none"></div>
             </Link>
 
@@ -264,23 +247,6 @@ const MainLayout = () => {
               <span className="hidden sm:block">Chat</span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl pointer-events-none"></div>
             </Link>
-
-            {/* Mes demandes - visible seulement pour les mentors */}
-            {isMentor && (
-              <Link
-                to="/mentor/requests"
-                className={`group relative py-4 px-6 font-medium transition-all duration-300 flex items-center space-x-2 rounded-t-2xl ${
-                  location.pathname.startsWith('/mentor/requests')
-                    ? 'text-blue-600 bg-gradient-to-t from-blue-50 to-transparent border-b-2 border-blue-600'
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/50'
-                }`}
-                style={{ animationDelay: '500ms' }}
-              >
-                <span className="text-lg group-hover:scale-110 transition-transform duration-300">📋</span>
-                <span className="hidden sm:block">Mes demandes</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-t-2xl pointer-events-none"></div>
-              </Link>
-            )}
 
             {/* Admin - visible seulement pour les admins */}
             {isAdmin && (
