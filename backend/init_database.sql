@@ -83,18 +83,41 @@ CREATE INDEX IF NOT EXISTS idx_mentoring_mentor_id ON mentoring(mentor_id);
 CREATE INDEX IF NOT EXISTS idx_mentoring_sponsored_id ON mentoring(sponsored_id);
 CREATE INDEX IF NOT EXISTS idx_events_date_start ON events(date_start);
 
--- 2. INSERTION D'UN UTILISATEUR ÉTUDIANT DE TEST
+-- 2. INSERTION D'UTILISATEURS DE TEST
 -- ========================================
--- Email: etudiant@test.com
--- Mot de passe: student123
--- Le hash bcrypt ci-dessous correspond à "student123"
+-- Étudiants :
+--   Email: etudiant@test.com, Mot de passe: student123
+-- Mentors :
+--   Email: mentor@test.com, Mot de passe: mentor123
+-- Admin :
+--   Email: admin@test.com, Mot de passe: admin123
+-- Le hash bcrypt ci-dessous correspond aux mots de passe
 
+-- Étudiant test
 INSERT INTO users (name, email, password, level)
 VALUES (
     'Étudiant Test',
     'etudiant@test.com',
     '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYIeWVxXbdK',
-    'Beginner'
+    'Student'
+) ON CONFLICT (email) DO NOTHING;
+
+-- Mentor test 1
+INSERT INTO users (name, email, password, level)
+VALUES (
+    'Sarah Martin',
+    'mentor@test.com',
+    '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYIeWVxXbdK',
+    'Mentor'
+) ON CONFLICT (email) DO NOTHING;
+
+-- Mentor test 2
+INSERT INTO users (name, email, password, level)
+VALUES (
+    'Thomas Dubois',
+    'mentor2@test.com',
+    '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYIeWVxXbdK',
+    'Mentor'
 ) ON CONFLICT (email) DO NOTHING;
 
 -- 3. INSERTION DE QUELQUES SALLES DE CLASSE

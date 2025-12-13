@@ -21,6 +21,7 @@ import ProtectedRoute from './features/auth/ProtectedRoute';
 import AdminProtectedRoute from './features/auth/AdminProtectedRoute';
 import MentoringPage from './features/mentoring/MentoringPage';
 import MentoringDetailPage from './features/mentoring/MentoringDetailPage';
+import MentorRequestsPage from './features/mentoring/MentorRequestsPage';
 import ModernMainAdminDashboard from './admin/ModernMainAdminDashboard';
 // Forum page supprimée
 
@@ -55,6 +56,7 @@ function App() {
             <Route path="social/event/:eventId" element={<EventDetailPage />} />
             <Route path="mentoring" element={<MentoringPage />} />
             <Route path="mentoring/session/:mentoringId" element={<MentoringDetailPage />} />
+            <Route path="mentor/requests" element={<MentorRequestsPage />} />
             {/* Route forum supprimée */}
             <Route path="user" element={<UserPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
