@@ -290,8 +290,10 @@ const HomePage = () => {
           
           <div className="flex overflow-x-auto pb-4 gap-6 scrollbar-hide">
             {upcomingEvents.map((event, index) => (
-              <Link to={`/social/event/${event.id}`} key={event.id} className="flex-shrink-0 w-64 group cursor-pointer">
-                <div className="h-72 bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 rounded-3xl relative overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+              <div key={event.id} className="flex-shrink-0 w-64 relative">
+                <div className="h-72 bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 rounded-3xl relative overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer group"
+                  onClick={() => window.location.href = `/social/event/${event.id}`}
+                >
                   {/* Image de l'événement */}
                   <img
                     src={event.image_url || getEventImage(event.category, event.title)}
@@ -452,7 +454,7 @@ const HomePage = () => {
                     </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
