@@ -313,11 +313,33 @@ const HomePage = () => {
                       </div>
                       <h3 className="font-bold text-lg mb-2">{event.title}</h3>
                       <p className="text-sm text-white/90 mb-3 line-clamp-2">{event.description}</p>
-                      <div className="flex items-center text-sm text-white/80">
-                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
+
+                      {/* Groupe d'avatars des participants (style WhatsApp stories) */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center -space-x-2 mb-1">
+                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-md">
+                            A
+                          </div>
+                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-md">
+                            M
+                          </div>
+                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-md">
+                            S
+                          </div>
+                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-md">
+                            +{event.attendance || '5'}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center text-sm text-white/80">
+                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                        </div>
+                      </div>
+
+                      <div className="text-xs text-white/70">
                         {event.place || 'Lieu à confirmer'}
                       </div>
                     </div>
