@@ -297,46 +297,92 @@ const HomePage = () => {
 
                   <div className="absolute inset-0 flex flex-col justify-between p-6 text-white z-20">
                     <div className="flex justify-between items-start">
-                      {/* Stories WhatsApp - Cercles d'images */}
-                      <div className="flex items-center gap-2">
-                        {/* Story 1 */}
-                        <div className="w-12 h-12 rounded-full p-0.5 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600">
-                          <div className="w-full h-full rounded-full border-2 border-white overflow-hidden">
-                            <img
-                              src={event.image_url || getEventImage(event.category, event.title)}
-                              alt="Story 1"
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
+                      {/* Story WhatsApp - Cercle unique avec bordure segmentée */}
+                      <div className="relative w-16 h-16">
+                        {/* Bordure segmentée avec SVG */}
+                        <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+                          {/* Segment 1 - Jaune à Rose */}
+                          <circle
+                            cx="50"
+                            cy="50"
+                            r="45"
+                            fill="none"
+                            stroke="url(#gradient1)"
+                            strokeWidth="3"
+                            strokeDasharray="70.7 212.1"
+                            strokeDashoffset="0"
+                            strokeLinecap="round"
+                          />
+                          {/* Segment 2 - Violet à Bleu */}
+                          <circle
+                            cx="50"
+                            cy="50"
+                            r="45"
+                            fill="none"
+                            stroke="url(#gradient2)"
+                            strokeWidth="3"
+                            strokeDasharray="70.7 212.1"
+                            strokeDashoffset="-70.7"
+                            strokeLinecap="round"
+                          />
+                          {/* Segment 3 - Vert à Émeraude */}
+                          <circle
+                            cx="50"
+                            cy="50"
+                            r="45"
+                            fill="none"
+                            stroke="url(#gradient3)"
+                            strokeWidth="3"
+                            strokeDasharray="70.7 212.1"
+                            strokeDashoffset="-141.4"
+                            strokeLinecap="round"
+                          />
+                          {/* Segment 4 - Orange à Rouge */}
+                          <circle
+                            cx="50"
+                            cy="50"
+                            r="45"
+                            fill="none"
+                            stroke="url(#gradient4)"
+                            strokeWidth="3"
+                            strokeDasharray="70.7 212.1"
+                            strokeDashoffset="-212.1"
+                            strokeLinecap="round"
+                          />
+
+                          {/* Définition des gradients */}
+                          <defs>
+                            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#fbbf24" />
+                              <stop offset="100%" stopColor="#ec4899" />
+                            </linearGradient>
+                            <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#a855f7" />
+                              <stop offset="100%" stopColor="#3b82f6" />
+                            </linearGradient>
+                            <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#34d399" />
+                              <stop offset="100%" stopColor="#10b981" />
+                            </linearGradient>
+                            <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#fb923c" />
+                              <stop offset="100%" stopColor="#ef4444" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+
+                        {/* Image au centre */}
+                        <div className="absolute inset-2 rounded-full border-2 border-white overflow-hidden shadow-lg">
+                          <img
+                            src={event.image_url || getEventImage(event.category, event.title)}
+                            alt={event.title}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
 
-                        {/* Story 2 */}
-                        <div className="w-12 h-12 rounded-full p-0.5 bg-gradient-to-tr from-purple-600 via-blue-500 to-cyan-400">
-                          <div className="w-full h-full rounded-full border-2 border-white overflow-hidden">
-                            <img
-                              src={getEventImage(event.category, 'Tech')}
-                              alt="Story 2"
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        </div>
-
-                        {/* Story 3 */}
-                        <div className="w-12 h-12 rounded-full p-0.5 bg-gradient-to-tr from-green-400 via-emerald-500 to-teal-600">
-                          <div className="w-full h-full rounded-full border-2 border-white overflow-hidden">
-                            <img
-                              src={getEventImage(event.category, 'Social')}
-                              alt="Story 3"
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        </div>
-
-                        {/* Story 4 - Plus d'images */}
-                        <div className="w-12 h-12 rounded-full p-0.5 bg-gradient-to-tr from-orange-400 via-red-500 to-pink-600">
-                          <div className="w-full h-full rounded-full border-2 border-white bg-black/60 backdrop-blur-sm flex items-center justify-center">
-                            <span className="text-xs font-bold">+3</span>
-                          </div>
+                        {/* Badge compteur d'images */}
+                        <div className="absolute -bottom-1 -right-1 bg-gradient-to-br from-orange-500 to-pink-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-white shadow-md">
+                          4
                         </div>
                       </div>
                     </div>
