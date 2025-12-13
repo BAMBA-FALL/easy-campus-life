@@ -241,14 +241,14 @@ const MentoringPage = () => {
                   key={session.id} 
                   className="group bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]"
                 >
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-semibold text-slate-800 text-lg">{session.subject}</h3>
+                  <div className="p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="font-semibold text-slate-800 text-base">{session.subject}</h3>
                       <span className="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-medium">Active</span>
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-2">
                       <div className="flex items-center text-slate-600 text-sm">
-                        <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                        <div className="w-6 h-6 bg-blue-100 rounded-lg flex items-center justify-center mr-2">
                           <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                           </svg>
@@ -256,7 +256,7 @@ const MentoringPage = () => {
                         <span><strong>Mentor:</strong> {session.mentor.name}</span>
                       </div>
                       <div className="flex items-center text-slate-600 text-sm">
-                        <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                        <div className="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center mr-2">
                           <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                           </svg>
@@ -264,7 +264,7 @@ const MentoringPage = () => {
                         <span><strong>Étudiant:</strong> {session.sponsored.name}</span>
                       </div>
                     </div>
-                    <div className="mt-4 pt-4 border-t border-slate-100">
+                    <div className="mt-3 pt-3 border-t border-slate-100">
                       <span className="text-blue-600 font-medium group-hover:text-blue-700 transition-colors">Voir détails →</span>
                     </div>
                   </div>
@@ -348,8 +348,8 @@ const MentoringPage = () => {
           {/* Détails du mentor sélectionné */}
           <div className="lg:w-2/3">
             {selectedMentor ? (
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 p-8">
-                <div className="flex items-center mb-8">
+              <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 p-6">
+                <div className="flex items-center mb-6">
                   <div className={`w-24 h-24 rounded-full mr-6 flex items-center justify-center text-white text-2xl font-bold shadow-xl ${getBackgroundColor(selectedMentor.id)}`}>
                     {getInitials(selectedMentor.name)}
                   </div>
@@ -365,10 +365,10 @@ const MentoringPage = () => {
                   </div>
                 </div>
 
-                <p className="text-slate-600 text-lg mb-8 leading-relaxed">{selectedMentor.bio}</p>
+                <p className="text-slate-600 mb-6 leading-relaxed">{selectedMentor.bio}</p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-2xl border border-purple-200">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-2xl border border-purple-200">
                     <h3 className="font-semibold text-purple-700 text-lg mb-2 flex items-center gap-2">
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
@@ -377,7 +377,7 @@ const MentoringPage = () => {
                     </h3>
                     <p className="text-purple-800 font-medium">{selectedMentor.specialty}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl border border-blue-200">
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-2xl border border-blue-200">
                     <h3 className="font-semibold text-blue-700 text-lg mb-2 flex items-center gap-2">
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />

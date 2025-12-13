@@ -306,16 +306,16 @@ const AffluencePage = () => {
               <div key={location.id} className="group bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
                 {/* Header with gradient bar */}
                 <div className={`h-1 bg-gradient-to-r ${getStatusGradient(location.status)}`}></div>
-                
-                <div className="p-6">
+
+                <div className="p-4">
                   {/* Room Header */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-12 h-12 ${getStatusColor(location.status)} rounded-xl flex items-center justify-center border`}>
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <div className={`w-10 h-10 ${getStatusColor(location.status)} rounded-xl flex items-center justify-center border`}>
                         {location.icon}
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold text-slate-800">{location.name}</h3>
+                        <h3 className="text-lg font-bold text-slate-800">{location.name}</h3>
                         <div className="flex items-center gap-2 mt-1">
                           <span className="text-sm text-slate-500">{location.type}</span>
                           <span className="text-slate-300">•</span>
@@ -335,8 +335,8 @@ const AffluencePage = () => {
                   </div>
 
                   {/* Occupancy Visualization */}
-                  <div className="mb-6">
-                    <div className="flex justify-between items-center mb-3">
+                  <div className="mb-4">
+                    <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-medium text-slate-700">Taux d'occupation</span>
                       <span className={`text-lg font-bold ${
                         location.status === 'high' ? 'text-red-600' : 
@@ -347,9 +347,9 @@ const AffluencePage = () => {
                     </div>
                     
                     {/* Progress Bar */}
-                    <div className="w-full bg-slate-200 rounded-full h-3 mb-3">
-                      <div 
-                        className={`h-3 rounded-full bg-gradient-to-r ${getStatusGradient(location.status)} transition-all duration-500`} 
+                    <div className="w-full bg-slate-200 rounded-full h-2 mb-2">
+                      <div
+                        className={`h-2 rounded-full bg-gradient-to-r ${getStatusGradient(location.status)} transition-all duration-500`} 
                         style={{ width: `${location.occupation}%` }}
                       ></div>
                     </div>
@@ -366,7 +366,7 @@ const AffluencePage = () => {
                   </div>
 
                   {/* Details */}
-                  <div className="pt-4 border-t border-slate-200">
+                  <div className="pt-3 border-t border-slate-200">
                     <p className="text-sm text-slate-600">{location.details}</p>
                   </div>
                 </div>
