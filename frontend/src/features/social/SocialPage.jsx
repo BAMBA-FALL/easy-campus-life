@@ -154,7 +154,7 @@ const SocialPage = () => {
               <input 
                 type="text" 
                 id="eventTitle" 
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                 placeholder="Ex: Festival Jazz sur Seine"
                 required 
               />
@@ -166,7 +166,7 @@ const SocialPage = () => {
                 <input 
                   type="date" 
                   id="eventDate" 
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                   required 
                 />
               </div>
@@ -175,7 +175,7 @@ const SocialPage = () => {
                 <input 
                   type="time" 
                   id="eventTime" 
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                   required 
                 />
               </div>
@@ -186,7 +186,7 @@ const SocialPage = () => {
               <input 
                 type="text" 
                 id="eventLocation" 
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                 placeholder="Ex: Campus ESTIAM"
                 required 
               />
@@ -205,7 +205,7 @@ const SocialPage = () => {
 
                          <button 
                type="submit" 
-               className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-[1.02]"
+               className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-3 px-6 rounded-xl font-semibold transition-colors duration-150"
              >
               Créer l'événement
             </button>
@@ -241,7 +241,7 @@ const SocialPage = () => {
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors duration-150 ${
                     selectedCategory === category
                       ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
                       : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
@@ -256,7 +256,7 @@ const SocialPage = () => {
               <button 
                 onClick={handleRefresh} 
                 disabled={isLoading} 
-                className={`px-4 py-2 rounded-xl flex items-center gap-2 font-medium transition-all duration-300 ${
+                className={`px-4 py-2 rounded-xl flex items-center gap-2 font-medium transition-colors duration-150 ${
                   isLoading 
                     ? 'bg-slate-200 text-slate-500 cursor-not-allowed' 
                     : 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300'
@@ -270,7 +270,7 @@ const SocialPage = () => {
               
                              <button 
                  onClick={() => setShowCreateModal(true)}
-                 className="px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl font-medium transition-all duration-300 transform hover:scale-[1.02] flex items-center gap-2"
+                 className="px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl font-medium transition-colors duration-150 flex items-center gap-2"
                >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -313,7 +313,7 @@ const SocialPage = () => {
             </p>
             <button 
               onClick={() => setSelectedCategory('Tous')}
-              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-medium hover:from-blue-600 hover:to-purple-700 transition-all duration-300"
+              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-medium hover:from-blue-600 hover:to-purple-700 transition-colors duration-150"
             >
               Voir tous les événements
             </button>
@@ -325,14 +325,14 @@ const SocialPage = () => {
               const timeUntilEvent = getTimeUntilEvent(event.date_start);
               
               return (
-                                 <div key={event.id} className="group bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                                 <div key={event.id} className="group bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 overflow-hidden transition-shadow duration-150 hover:shadow-2xl">
                   <div className="relative">
                     {/* Image d'événement avec overlay gradient */}
                     <div className="h-40 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 relative overflow-hidden">
                       <img
                         src={event.image_url || getEventImage(event.category, event.title)}
                         alt={event.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover"
                       />
                       
                       {/* Overlay gradient */}
@@ -412,7 +412,7 @@ const SocialPage = () => {
                     
                                          <Link 
                        to={`/social/event/${event.id}`} 
-                       className="block w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white text-center py-2 px-4 rounded-xl font-semibold text-sm transition-all duration-300 transform hover:scale-[1.02]"
+                       className="block w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white text-center py-2 px-4 rounded-xl font-semibold text-sm transition-colors duration-150"
                      >
                       Voir les détails
                     </Link>
