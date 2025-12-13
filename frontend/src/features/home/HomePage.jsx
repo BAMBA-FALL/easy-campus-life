@@ -7,9 +7,10 @@ const HomePage = () => {
   const [mentors, setMentors] = useState([]);
   const [loadingMentors, setLoadingMentors] = useState(true);
 
-  // État pour le modal d'image
-  const [selectedEventImage, setSelectedEventImage] = useState(null);
-  const [showImageModal, setShowImageModal] = useState(false);
+  // État pour le carousel d'images (stories)
+  const [showStoryModal, setShowStoryModal] = useState(false);
+  const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
+  const [storyImages, setStoryImages] = useState([]);
   
   // Fonction pour générer les initiales à partir d'un nom
   const getInitials = (name) => {
@@ -304,8 +305,17 @@ const HomePage = () => {
                     className="absolute top-4 left-4 w-16 h-16 z-30 cursor-pointer transform transition-transform hover:scale-110"
                     onClick={(e) => {
                       e.preventDefault();
-                      setSelectedEventImage(event.image_url || getEventImage(event.category, event.title));
-                      setShowImageModal(true);
+                      e.stopPropagation();
+                      // Créer un tableau d'images pour le carousel
+                      const images = [
+                        event.image_url || getEventImage(event.category, event.title),
+                        getEventImage(event.category, 'Tech'),
+                        getEventImage(event.category, 'Social'),
+                        getEventImage(event.category, 'Culture')
+                      ];
+                      setStoryImages(images);
+                      setCurrentStoryIndex(0);
+                      setShowStoryModal(true);
                     }}
                   >
                     <div className="relative w-full h-full">
@@ -616,30 +626,91 @@ const HomePage = () => {
         }
       `}</style>
 
-      {/* Modal d'affichage d'image */}
-      {showImageModal && (
-        <div
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-          onClick={() => setShowImageModal(false)}
-        >
-          <div className="relative max-w-4xl w-full">
-            {/* Bouton fermer */}
-            <button
-              onClick={() => setShowImageModal(false)}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
-            >
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+      {/* Modal Carousel Stories WhatsApp */}
+      {showStoryModal && (
+        <div className="fixed inset-0 bg-black z-50 flex items-center justify-center">
+          {/* Bouton fermer */}
+          <button
+            onClick={() => setShowStoryModal(false)}
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-50"
+          >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
 
-            {/* Image */}
-            <img
-              src={selectedEventImage}
-              alt="Event"
-              className="w-full h-auto rounded-2xl shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
+          {/* Barres de progression (comme WhatsApp) */}
+          <div className="absolute top-4 left-4 right-4 flex gap-1 z-50">
+            {storyImages.map((_, index) => (
+              <div key={index} className="flex-1 h-1 bg-white/30 rounded-full overflow-hidden">
+                <div
+                  className={`h-full bg-white transition-all duration-300 ${
+                    index < currentStoryIndex ? 'w-full' : index === currentStoryIndex ? 'w-full' : 'w-0'
+                  }`}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Container principal du carousel */}
+          <div className="relative w-full h-full max-w-lg mx-auto flex items-center justify-center">
+            {/* Zone cliquable gauche - Image précédente */}
+            <div
+              className="absolute left-0 top-0 bottom-0 w-1/3 cursor-pointer z-40"
+              onClick={() => {
+                if (currentStoryIndex > 0) {
+                  setCurrentStoryIndex(currentStoryIndex - 1);
+                }
+              }}
             />
+
+            {/* Image actuelle */}
+            <img
+              src={storyImages[currentStoryIndex]}
+              alt={`Story ${currentStoryIndex + 1}`}
+              className="max-w-full max-h-full object-contain"
+            />
+
+            {/* Zone cliquable droite - Image suivante */}
+            <div
+              className="absolute right-0 top-0 bottom-0 w-2/3 cursor-pointer z-40"
+              onClick={() => {
+                if (currentStoryIndex < storyImages.length - 1) {
+                  setCurrentStoryIndex(currentStoryIndex + 1);
+                } else {
+                  setShowStoryModal(false);
+                }
+              }}
+            />
+
+            {/* Flèche gauche (optionnel) */}
+            {currentStoryIndex > 0 && (
+              <button
+                onClick={() => setCurrentStoryIndex(currentStoryIndex - 1)}
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-50"
+              >
+                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+            )}
+
+            {/* Flèche droite (optionnel) */}
+            {currentStoryIndex < storyImages.length - 1 && (
+              <button
+                onClick={() => setCurrentStoryIndex(currentStoryIndex + 1)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-50"
+              >
+                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            )}
+
+            {/* Compteur d'images */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium">
+              {currentStoryIndex + 1} / {storyImages.length}
+            </div>
           </div>
         </div>
       )}
