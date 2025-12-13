@@ -283,7 +283,7 @@ const SocialPage = () => {
 
         {/* Events Grid */}
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[...Array(6)].map((_, index) => (
               <div key={index} className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 overflow-hidden animate-pulse">
                 <div className="h-48 bg-slate-200"></div>
@@ -319,7 +319,7 @@ const SocialPage = () => {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredEvents.map(event => {
               const participantData = participantCounts[event.id];
               const timeUntilEvent = getTimeUntilEvent(event.date_start);
