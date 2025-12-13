@@ -452,7 +452,6 @@ const HomePage = () => {
                         {event.place || 'Lieu à confirmer'}
                       </div>
                     </div>
-                  </div>
                 </div>
               </div>
             ))}
