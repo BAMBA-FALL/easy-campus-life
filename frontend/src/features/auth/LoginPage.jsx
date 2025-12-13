@@ -42,11 +42,14 @@ const LoginPage = () => {
 
   const fillDemoCredentials = (type) => {
     if (type === 'student') {
-      setEmail('demo@campus.fr');
+      setEmail('etudiant@test.com');
       setPassword('student123');
     } else if (type === 'admin') {
       setEmail('admin@campus.fr');
       setPassword('admin2024');
+    } else if (type === 'mentor') {
+      setEmail('mentor@test.com');
+      setPassword('mentor123');
     }
     setError('');
   };
@@ -103,7 +106,7 @@ const LoginPage = () => {
             <h3 className="font-semibold text-sm text-slate-800">Comptes de démonstration</h3>
           </div>
           <p className="text-xs text-slate-600 mb-3">Cliquez pour remplir automatiquement les identifiants :</p>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-3 gap-2">
             <button
               type="button"
               onClick={() => fillDemoCredentials('student')}
@@ -113,7 +116,18 @@ const LoginPage = () => {
                 <span className="text-white text-lg">👨‍🎓</span>
               </div>
               <span className="text-xs font-medium text-slate-700">Étudiant</span>
-              <span className="text-xs text-slate-500">demo@campus.fr</span>
+              <span className="text-xs text-slate-500">etudiant@...</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => fillDemoCredentials('mentor')}
+              className="flex flex-col items-center gap-1 p-3 bg-white hover:bg-green-50 border border-green-200 rounded-lg transition-all duration-200 hover:shadow-md group"
+            >
+              <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span className="text-white text-lg">👨‍🏫</span>
+              </div>
+              <span className="text-xs font-medium text-slate-700">Mentor</span>
+              <span className="text-xs text-slate-500">mentor@...</span>
             </button>
             <button
               type="button"
@@ -124,7 +138,7 @@ const LoginPage = () => {
                 <span className="text-white text-lg">👨‍💼</span>
               </div>
               <span className="text-xs font-medium text-slate-700">Admin</span>
-              <span className="text-xs text-slate-500">admin@campus.fr</span>
+              <span className="text-xs text-slate-500">admin@...</span>
             </button>
           </div>
         </div>
