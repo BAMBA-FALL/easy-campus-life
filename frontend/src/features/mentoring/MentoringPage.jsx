@@ -18,6 +18,7 @@ const MentoringPage = () => {
   });
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [mentoringSessions, setMentoringSessions] = useState([]);
+  const [mentors, setMentors] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('Tous');
 
   // États pour la vue mentor
@@ -74,17 +75,19 @@ const MentoringPage = () => {
       };
 
       await apiService.createMentoringSession(mentoringData);
-      const data = await apiService.getMentoringSessions();
-      setMentoringSessions(data);
+      await fetchMentoringSessions();
 
       setBookingSuccess(true);
       setShowBookingForm(false);
+      setBookingData({
+        date: '',
+        time: '',
+        topic: '',
+        message: ''
+      });
     } catch (error) {
       console.error('Erreur lors de la création de la session de mentorat:', error);
-      setTimeout(() => {
-        setBookingSuccess(true);
-        setShowBookingForm(false);
-      }, 1000);
+      alert('Erreur lors de la création de la demande. Veuillez réessayer.');
     }
   };
 
@@ -131,57 +134,50 @@ const MentoringPage = () => {
     }
   };
 
+  const fetchMentors = async () => {
+    try {
+      const users = await apiService.getUsers();
+      // Filtrer pour ne garder que les mentors
+      const mentorUsers = users.filter(u => u.level === 'Mentor' || u.level === 'mentor');
+      // Convertir au format attendu par le composant
+      const formattedMentors = mentorUsers.map(mentor => ({
+        id: mentor.id,
+        name: mentor.name,
+        department: `Niveau ${mentor.level}`,
+        specialty: 'Mentorat académique',
+        availability: 'Sur demande',
+        rating: 4.5,
+        bio: `${mentor.name} est disponible pour vous accompagner dans vos études.`
+      }));
+      setMentors(formattedMentors);
+    } catch (err) {
+      console.error('Erreur lors du chargement des mentors:', err);
+    }
+  };
+
   const fetchMentoringSessions = async () => {
-    setLoading(true);
     try {
       const data = await apiService.getMentoringSessions();
       setMentoringSessions(data);
       setError(null);
     } catch (err) {
       console.error('Erreur lors du chargement des sessions de mentorat:', err);
-      setError('Impossible de charger les données de mentorat. Utilisation des données simulées.');
-    } finally {
-      setLoading(false);
+      setError('Impossible de charger les données de mentorat.');
     }
   };
 
   useEffect(() => {
-    if (isMentor) {
-      fetchMentorRequests();
-    } else {
-      fetchMentoringSessions();
-    }
-  }, [isMentor, user]);
-
-  // Conversion des données de l'API au format attendu par le composant
-  const convertApiDataToMentorFormat = (apiData) => {
-    if (!apiData || apiData.length === 0) return [];
-
-    const mentorsMap = new Map();
-
-    apiData.forEach(session => {
-      const mentor = session.mentor;
-
-      if (!mentorsMap.has(mentor.id)) {
-        mentorsMap.set(mentor.id, {
-          id: mentor.id,
-          name: mentor.name,
-          department: `Niveau ${mentor.level}`,
-          specialty: session.subject || 'Non spécifié',
-          availability: 'Sur demande',
-          rating: 4.5,
-          bio: session.description || 'Mentor disponible pour vous aider dans vos études.'
-        });
+    const loadData = async () => {
+      setLoading(true);
+      if (isMentor) {
+        await fetchMentorRequests();
+      } else {
+        await Promise.all([fetchMentors(), fetchMentoringSessions()]);
       }
-    });
-
-    return Array.from(mentorsMap.values());
-  };
-
-  const mentors = error ? [] :
-    (mentoringSessions.length > 0 ?
-      convertApiDataToMentorFormat(mentoringSessions) :
-      []);
+      setLoading(false);
+    };
+    loadData();
+  }, [isMentor, user]);
 
   const filteredMentors = selectedCategory === 'Tous'
     ? mentors
