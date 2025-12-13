@@ -6,6 +6,10 @@ const HomePage = () => {
   // État pour les données dynamiques des mentors
   const [mentors, setMentors] = useState([]);
   const [loadingMentors, setLoadingMentors] = useState(true);
+
+  // État pour le modal d'image
+  const [selectedEventImage, setSelectedEventImage] = useState(null);
+  const [showImageModal, setShowImageModal] = useState(false);
   
   // Fonction pour générer les initiales à partir d'un nom
   const getInitials = (name) => {
@@ -295,10 +299,16 @@ const HomePage = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10"></div>
 
-                  <div className="absolute inset-0 flex flex-col justify-between p-6 text-white z-20">
-                    <div className="flex justify-between items-start">
-                      {/* Story WhatsApp - Cercle unique avec bordure segmentée */}
-                      <div className="relative w-16 h-16">
+                  {/* Story WhatsApp - Cercle unique avec bordure segmentée - Coin supérieur gauche */}
+                  <div
+                    className="absolute top-4 left-4 w-16 h-16 z-30 cursor-pointer transform transition-transform hover:scale-110"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setSelectedEventImage(event.image_url || getEventImage(event.category, event.title));
+                      setShowImageModal(true);
+                    }}
+                  >
+                    <div className="relative w-full h-full">
                         {/* Bordure segmentée avec SVG */}
                         <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
                           {/* Segment 1 - Jaune à Rose */}
@@ -384,10 +394,11 @@ const HomePage = () => {
                         <div className="absolute -bottom-1 -right-1 bg-gradient-to-br from-orange-500 to-pink-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-white shadow-md">
                           4
                         </div>
-                      </div>
                     </div>
-                    
-                    <div>
+                  </div>
+
+                  {/* Contenu en bas de la carte */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white z-20">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="bg-black/30 backdrop-blur-sm rounded-lg px-2 py-1 text-xs font-medium">
                           {event.category}
@@ -599,11 +610,39 @@ const HomePage = () => {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
-        
+
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
       `}</style>
+
+      {/* Modal d'affichage d'image */}
+      {showImageModal && (
+        <div
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={() => setShowImageModal(false)}
+        >
+          <div className="relative max-w-4xl w-full">
+            {/* Bouton fermer */}
+            <button
+              onClick={() => setShowImageModal(false)}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Image */}
+            <img
+              src={selectedEventImage}
+              alt="Event"
+              className="w-full h-auto rounded-2xl shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
