@@ -629,11 +629,11 @@ const HomePage = () => {
 
       {/* Modal Carousel Stories WhatsApp */}
       {showStoryModal && (
-        <div className="fixed inset-0 bg-black z-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black z-[9999] flex items-center justify-center">
           {/* Bouton fermer */}
           <button
             onClick={() => setShowStoryModal(false)}
-            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-50"
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-[10000]"
           >
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -641,7 +641,7 @@ const HomePage = () => {
           </button>
 
           {/* Barres de progression (comme WhatsApp) */}
-          <div className="absolute top-4 left-4 right-4 flex gap-1 z-50">
+          <div className="absolute top-4 left-4 right-4 flex gap-1 z-[10000]">
             {storyImages.map((_, index) => (
               <div key={index} className="flex-1 h-1 bg-white/30 rounded-full overflow-hidden">
                 <div
@@ -657,7 +657,7 @@ const HomePage = () => {
           <div className="relative w-full h-full max-w-lg mx-auto flex items-center justify-center">
             {/* Zone cliquable gauche - Image précédente */}
             <div
-              className="absolute left-0 top-0 bottom-0 w-1/3 cursor-pointer z-40"
+              className="absolute left-0 top-0 bottom-0 w-1/3 cursor-pointer z-[9998]"
               onClick={() => {
                 if (currentStoryIndex > 0) {
                   setCurrentStoryIndex(currentStoryIndex - 1);
@@ -674,7 +674,7 @@ const HomePage = () => {
 
             {/* Zone cliquable droite - Image suivante */}
             <div
-              className="absolute right-0 top-0 bottom-0 w-2/3 cursor-pointer z-40"
+              className="absolute right-0 top-0 bottom-0 w-2/3 cursor-pointer z-[9998]"
               onClick={() => {
                 if (currentStoryIndex < storyImages.length - 1) {
                   setCurrentStoryIndex(currentStoryIndex + 1);
@@ -688,7 +688,7 @@ const HomePage = () => {
             {currentStoryIndex > 0 && (
               <button
                 onClick={() => setCurrentStoryIndex(currentStoryIndex - 1)}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-50"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-[10000]"
               >
                 <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -700,7 +700,7 @@ const HomePage = () => {
             {currentStoryIndex < storyImages.length - 1 && (
               <button
                 onClick={() => setCurrentStoryIndex(currentStoryIndex + 1)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-50"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-[10000]"
               >
                 <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
