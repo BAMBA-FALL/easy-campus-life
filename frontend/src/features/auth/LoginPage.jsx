@@ -42,7 +42,7 @@ const LoginPage = () => {
 
   const fillDemoCredentials = (type) => {
     if (type === 'student') {
-      setEmail('etudiant@test.com');
+      setEmail('student@campus.fr');
       setPassword('student123');
     } else if (type === 'admin') {
       setEmail('admin@campus.fr');
@@ -116,7 +116,7 @@ const LoginPage = () => {
                 <span className="text-white text-lg">👨‍🎓</span>
               </div>
               <span className="text-xs font-medium text-slate-700">Étudiant</span>
-              <span className="text-xs text-slate-500">etudiant@...</span>
+              <span className="text-xs text-slate-500">student@...</span>
             </button>
             <button
               type="button"
