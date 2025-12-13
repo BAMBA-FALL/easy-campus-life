@@ -288,28 +288,68 @@ const HomePage = () => {
               <Link to={`/social/event/${event.id}`} key={event.id} className="flex-shrink-0 w-64 group cursor-pointer">
                 <div className="h-72 bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 rounded-3xl relative overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
                   {/* Image de l'événement */}
-                  <img 
-                    src={event.image_url || getEventImage(event.category, event.title)} 
+                  <img
+                    src={event.image_url || getEventImage(event.category, event.title)}
                     alt={event.title}
                     className="absolute inset-0 w-full h-full object-cover z-0"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10"></div>
-                  
+
                   <div className="absolute inset-0 flex flex-col justify-between p-6 text-white z-20">
                     <div className="flex justify-between items-start">
-                      <div className="bg-white/20 backdrop-blur-sm rounded-xl px-3 py-1.5 text-sm font-medium">
-                        {/* Format de date adapté au nouveau format JSON */}
-                        {event.date_start && 
-                          new Date(event.date_start).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}
-                      </div>
-                      <div className="bg-green-500/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold">
-                        {event.attendance || '0+'}
+                      {/* Stories WhatsApp - Cercles d'images */}
+                      <div className="flex items-center gap-2">
+                        {/* Story 1 */}
+                        <div className="w-12 h-12 rounded-full p-0.5 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600">
+                          <div className="w-full h-full rounded-full border-2 border-white overflow-hidden">
+                            <img
+                              src={event.image_url || getEventImage(event.category, event.title)}
+                              alt="Story 1"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Story 2 */}
+                        <div className="w-12 h-12 rounded-full p-0.5 bg-gradient-to-tr from-purple-600 via-blue-500 to-cyan-400">
+                          <div className="w-full h-full rounded-full border-2 border-white overflow-hidden">
+                            <img
+                              src={getEventImage(event.category, 'Tech')}
+                              alt="Story 2"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Story 3 */}
+                        <div className="w-12 h-12 rounded-full p-0.5 bg-gradient-to-tr from-green-400 via-emerald-500 to-teal-600">
+                          <div className="w-full h-full rounded-full border-2 border-white overflow-hidden">
+                            <img
+                              src={getEventImage(event.category, 'Social')}
+                              alt="Story 3"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Story 4 - Plus d'images */}
+                        <div className="w-12 h-12 rounded-full p-0.5 bg-gradient-to-tr from-orange-400 via-red-500 to-pink-600">
+                          <div className="w-full h-full rounded-full border-2 border-white bg-black/60 backdrop-blur-sm flex items-center justify-center">
+                            <span className="text-xs font-bold">+3</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     
                     <div>
-                      <div className="bg-black/30 backdrop-blur-sm rounded-lg px-2 py-1 text-xs font-medium inline-block mb-2">
-                        {event.category}
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="bg-black/30 backdrop-blur-sm rounded-lg px-2 py-1 text-xs font-medium">
+                          {event.category}
+                        </div>
+                        <div className="bg-white/20 backdrop-blur-sm rounded-lg px-2 py-1 text-xs font-medium">
+                          {event.date_start &&
+                            new Date(event.date_start).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}
+                        </div>
                       </div>
                       <h3 className="font-bold text-lg mb-2">{event.title}</h3>
                       <p className="text-sm text-white/90 mb-3 line-clamp-2">{event.description}</p>
