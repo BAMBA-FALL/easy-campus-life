@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import apiService from '../../services/apiService';
+import { useStoryModal } from '../../contexts/StoryModalContext';
 
 const HomePage = () => {
+  // Contexte pour le modal story
+  const { isStoryModalOpen, setIsStoryModalOpen } = useStoryModal();
+
   // État pour les données dynamiques des mentors
   const [mentors, setMentors] = useState([]);
   const [loadingMentors, setLoadingMentors] = useState(true);
 
   // État pour le carousel d'images (stories)
-  const [showStoryModal, setShowStoryModal] = useState(false);
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
   const [storyImages, setStoryImages] = useState([]);
   
@@ -317,7 +320,7 @@ const HomePage = () => {
                       ];
                       setStoryImages(images);
                       setCurrentStoryIndex(0);
-                      setShowStoryModal(true);
+                      setIsStoryModalOpen(true);
                     }}
                   >
                     <div className="relative w-full h-full">
@@ -628,11 +631,11 @@ const HomePage = () => {
       `}</style>
 
       {/* Modal Carousel Stories WhatsApp */}
-      {showStoryModal && (
+      {isStoryModalOpen && (
         <div className="fixed inset-0 bg-black z-[9999] flex items-center justify-center">
           {/* Bouton fermer */}
           <button
-            onClick={() => setShowStoryModal(false)}
+            onClick={() => setIsStoryModalOpen(false)}
             className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-[10000]"
           >
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -679,7 +682,7 @@ const HomePage = () => {
                 if (currentStoryIndex < storyImages.length - 1) {
                   setCurrentStoryIndex(currentStoryIndex + 1);
                 } else {
-                  setShowStoryModal(false);
+                  setIsStoryModalOpen(false);
                 }
               }}
             />

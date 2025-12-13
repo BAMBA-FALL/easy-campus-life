@@ -4,6 +4,7 @@ import './App.css';
 // Context
 import { AuthProvider } from './contexts/AuthContext';
 import { SocketProvider } from './contexts/SocketContext';
+import { StoryModalProvider } from './contexts/StoryModalContext';
 
 // Layout
 import MainLayout from './layouts/MainLayout';
@@ -42,7 +43,9 @@ function App() {
           {/* Routes publiques protégées avec MainLayout */}
           <Route path="/" element={
             <ProtectedRoute>
-              <MainLayout />
+              <StoryModalProvider>
+                <MainLayout />
+              </StoryModalProvider>
             </ProtectedRoute>
           }>
             <Route index element={<HomePage />} />

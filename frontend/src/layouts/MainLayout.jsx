@@ -3,11 +3,13 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import FloatingChatBot from '../components/FloatingChatBot';
 import NotificationBell from '../components/NotificationBell';
 import NotificationToast from '../components/NotificationToast';
+import { useStoryModal } from '../contexts/StoryModalContext';
 
 const MainLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [userRole, setUserRole] = useState(null);
+  const { isStoryModalOpen } = useStoryModal();
 
   // Récupérer le rôle de l'utilisateur au chargement et à chaque changement de route
   useEffect(() => {
@@ -38,6 +40,7 @@ const MainLayout = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header moderne avec navigation intégrée */}
+      {!isStoryModalOpen && (
       <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-lg">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
@@ -160,8 +163,10 @@ const MainLayout = () => {
           </div>
         </div>
       </header>
+      )}
 
       {/* Navigation mobile */}
+      {!isStoryModalOpen && (
       <nav className="lg:hidden sticky top-0 z-40 bg-white border-b border-gray-200 shadow-md">
         <div className="container mx-auto px-4">
           <div className="flex space-x-1 overflow-x-auto scrollbar-hide">
@@ -259,6 +264,7 @@ const MainLayout = () => {
           </div>
         </div>
       </nav>
+      )}
 
       {/* Main Content avec glassmorphism */}
       <main className="relative z-10 flex-grow pb-6">
